@@ -11,7 +11,7 @@ set(gcc_url https://bigsearcher.com/mirrors/gcc/snapshots/LATEST-12/gcc-12-20220
 
 ExternalProject_Add(gcc_compiler
 URL ${gcc_url}
-CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gcc_args}
+CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gcc_args} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS}
 BUILD_COMMAND ${MAKE_EXECUTABLE} -j
 INSTALL_COMMAND ${MAKE_EXECUTABLE} -j install
 TEST_COMMAND ""

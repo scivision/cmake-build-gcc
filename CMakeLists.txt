@@ -22,8 +22,11 @@ set(CMAKE_TLS_VERIFY true)
 
 set_directory_properties(PROPERTIES EP_UPDATE_DISCONNECTED true)
 
-# Make
 find_program(MAKE_EXECUTABLE NAMES gmake make mingw32-make REQUIRED)
+
+set(LDFLAGS $ENV{LDFLAGS})
+string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib")
+string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
 
 include(gmp.cmake)
 
