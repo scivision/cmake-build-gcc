@@ -17,60 +17,10 @@ set_directory_properties(PROPERTIES EP_UPDATE_DISCONNECTED true)
 # Make
 find_program(MAKE_EXECUTABLE NAMES gmake make mingw32-make REQUIRED)
 
-# GMP
-find_path(GMP_INCLUDE_DIR
-NAMES gmp.h
-REQUIRED
-)
+include(gmp.cmake)
 
-find_library(GMP_LIBRARY
-NAMES gmp
-REQUIRED
-)
+include(mpfr.cmake)
 
-# MPFR
-find_path(MPFR_INCLUDE_DIR
-NAMES mpfr.h
-REQUIRED
-)
+include(mpc.cmake)
 
-find_library(MPFR_LIBRARY
-NAMES mpfr
-REQUIRED
-)
-
-# MPC
-find_path(MPC_INCLUDE_DIR
-NAMES mpc.h
-REQUIRED
-)
-
-find_library(MPC_LIBRARY
-NAMES mpc
-REQUIRED
-)
-
-set(gcc_args)
-
-ExternalProject_Add(gcc_compiler
-URL https://bigsearcher.com/mirrors/gcc/snapshots/LATEST-12/gcc-12-20220327.tar.xz
-CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gcc_args}
-BUILD_COMMAND ${MAKE_EXECUTABLE} -j ${Ncpu}
-INSTALL_COMMAND ${MAKE_EXECUTABLE} -j ${Ncpu} install
-TEST_COMMAND ""
-INACTIVITY_TIMEOUT 15
-CONFIGURE_HANDLED_BY_BUILD ON
-)
-
-set(gcc_url https://bigsearcher.com/mirrors/gcc/snapshots/LATEST-12/gcc-12-20220327.tar.xz)
-set(gcc_args)
-
-ExternalProject_Add(gcc_compiler
-URL ${gcc_url}
-CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gcc_args}
-BUILD_COMMAND ${MAKE_EXECUTABLE} -j ${Ncpu}
-INSTALL_COMMAND ${MAKE_EXECUTABLE} -j ${Ncpu} install
-TEST_COMMAND ""
-INACTIVITY_TIMEOUT 15
-CONFIGURE_HANDLED_BY_BUILD ON
-)
+include(gcc.cmake)
