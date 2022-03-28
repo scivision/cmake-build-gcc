@@ -1,5 +1,8 @@
 set(gcc_args
 --prefix=${CMAKE_INSTALL_PREFIX}
+--with-gmp=${GMP_ROOT}
+--with-mpc=${MPC_ROOT}
+--with-mpfr=${MPFR_ROOT}
 )
 
 set(gcc_url https://bigsearcher.com/mirrors/gcc/snapshots/LATEST-12/gcc-12-20220327.tar.xz)
