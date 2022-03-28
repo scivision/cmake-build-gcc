@@ -3,6 +3,8 @@ set(gcc_args
 --with-gmp=${GMP_ROOT}
 --with-mpc=${MPC_ROOT}
 --with-mpfr=${MPFR_ROOT}
+--disable-multilib
+--enable-languages=c,c++,fortran
 )
 
 set(gcc_url https://bigsearcher.com/mirrors/gcc/snapshots/LATEST-12/gcc-12-20220327.tar.xz)
