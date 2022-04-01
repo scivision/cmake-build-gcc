@@ -12,12 +12,12 @@ The 3-stage
 [compiler bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(compilers))
 is enabled to help ensure a working, performant GCC.
 
-It assumes a Linux/Unix/MacOS-like system with Autotools, Make, and a new-enough C/C++ compiler.
+To keep things simple, this CMake project assumes a Linux system with Autotools, Make, and a new-enough C/C++ compiler.
+GCC will take 10s of minutes to build, even on a powerful workstation.
 
 ```sh
 cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/gcc-devel
 
-# Linux
 LD_LIBRARY_PATH=$HOME/gcc-devel:$LD_LIBRARY_PATH cmake --build build
 ```
 
