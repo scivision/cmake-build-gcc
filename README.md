@@ -1,7 +1,8 @@
 # CMake build GCC
 
 Build GCC (C, C++, Fortran) and prerequisite libraries GMP, MPFR, and MPC from CMake.
-We also include ISL for Graphite optimizations.
+There is optional ISL for Graphite optimizations, which takes much longer to build GCC itself.
+By default ISL is off.
 
 It assumes a Linux/Unix/MacOS-like system with Autotools, Make, and a new-enough C/C++ compiler.
 

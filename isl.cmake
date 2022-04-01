@@ -1,3 +1,8 @@
+if(NOT use_isl)
+  add_custom_target(ISL)
+  return()
+endif()
+
 set(isl_args
 --prefix=${CMAKE_INSTALL_PREFIX}
 --with-gmp-prefix=${GMP_ROOT}
