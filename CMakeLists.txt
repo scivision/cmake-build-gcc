@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20...3.23)
 
-project(BuildGCC LANGUAGES NONE)
+project(BuildGCC LANGUAGES C CXX)
 
 include(ExternalProject)
 
@@ -28,10 +28,6 @@ set(LDFLAGS $ENV{LDFLAGS})
 string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib")
 string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
 
-include(gmp.cmake)
-
-include(mpfr.cmake)
-
-include(mpc.cmake)
-
-include(gcc.cmake)
+foreach(t gmp isl mpfr mpc gcc)
+  include(${t}.cmake)
+endforeach()

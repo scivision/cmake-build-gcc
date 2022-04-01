@@ -1,6 +1,7 @@
 set(gcc_args
 --prefix=${CMAKE_INSTALL_PREFIX}
 --with-gmp=${GMP_ROOT}
+--with-isl=${ISL_ROOT}
 --with-mpc=${MPC_ROOT}
 --with-mpfr=${MPFR_ROOT}
 --disable-multilib
@@ -23,5 +24,5 @@ INSTALL_COMMAND ${MAKE_EXECUTABLE} -j install
 TEST_COMMAND ""
 INACTIVITY_TIMEOUT 15
 CONFIGURE_HANDLED_BY_BUILD ON
-DEPENDS "GMP;MPC;MPFR"
+DEPENDS "GMP;ISL;MPC;MPFR"
 )

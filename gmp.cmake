@@ -1,4 +1,3 @@
-# GMP
 set(gmp_args
 --prefix=${CMAKE_INSTALL_PREFIX}
 )
