@@ -7,6 +7,10 @@ set(gcc_args
 --enable-languages=c,c++,fortran
 )
 
+if(CMAKE_SYSTEM_NAME STREQUAL Linux)
+  set(ENV{LD_LIBRARY_PATH} "${CMAKE_INSTALL_PREFIX}/lib:$ENV{LD_LIBRARY_PATH}")
+endif()
+
 set(gcc_url https://bigsearcher.com/mirrors/gcc/releases/gcc-11.2.0/gcc-11.2.0.tar.xz)
 set(gcc_sha512 d53a0a966230895c54f01aea38696f818817b505f1e2bfa65e508753fcd01b2aedb4a61434f41f3a2ddbbd9f41384b96153c684ded3f0fa97c82758d9de5c7cf)
 
