@@ -1,8 +1,16 @@
 # CMake build GCC
 
-Build GCC (C, C++, Fortran) and prerequisite libraries GMP, MPFR, and MPC from CMake.
-There is optional ISL for Graphite optimizations, which takes much longer to build GCC itself.
+Build [GCC](https://gcc.gnu.org/install/) natively for C, C++, Fortran languages.
+Builds prerequisite libraries GMP, MPFR, and MPC from CMake.
+There is optional ISL for Graphite optimizations, which takes longer to build GCC itself.
 By default ISL is off; enable ISL with `-Duse_isl=on`.
+
+This avoids needing to manually download and configure each project.
+This assumes fundamental [prerequisites](https://gcc.gnu.org/install/prerequisites.html)
+such as libc, Autotools, Make, CMake are present.
+The 3-stage
+[compiler bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(compilers))
+is enabled to help ensure a working, performant GCC.
 
 It assumes a Linux/Unix/MacOS-like system with Autotools, Make, and a new-enough C/C++ compiler.
 
@@ -20,14 +28,7 @@ That will build GCC and install it to ~/gcc-devel.
 By default, a recent release of GCC is built.
 To specify GCC source URL, for example to build a [snapshot](https://gcc.gnu.org/pub/gcc/snapshots/LATEST-12/) specify the source archive URL with `-Dgcc_url=<url>`.
 
-## Advantages
+## Caveats
 
-The key feature of this project is the downloading and building are all handled from the simple command above, rather than several manual steps.
-
-One could add options for cross-compiling etc. would be happy to consider such additions.
-
-## Downsides
-
-Individual GCC snapshots as used here may be broken.
 Numerous platforms require specific patches that we don't currently implement, though it would usually be straightforward to do so.
 Key examples needing patches include Apple Silicon, MSYS2, etc.
