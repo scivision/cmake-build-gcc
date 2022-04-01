@@ -1,5 +1,6 @@
 set(isl_args
 --prefix=${CMAKE_INSTALL_PREFIX}
+--with-gmp-prefix=${GMP_ROOT}
 )
 
 set(isl_url https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2)
@@ -12,6 +13,7 @@ INSTALL_COMMAND ${MAKE_EXECUTABLE} -j install
 TEST_COMMAND ""
 INACTIVITY_TIMEOUT 15
 CONFIGURE_HANDLED_BY_BUILD ON
+DEPENDS "GMP"
 )
 
 cmake_path(SET ISL_ROOT ${CMAKE_INSTALL_PREFIX})
