@@ -2,7 +2,7 @@
 
 Build GCC (C, C++, Fortran) and prerequisite libraries GMP, MPFR, and MPC from CMake.
 There is optional ISL for Graphite optimizations, which takes much longer to build GCC itself.
-By default ISL is off.
+By default ISL is off; enable ISL with `-Duse_isl=on`.
 
 It assumes a Linux/Unix/MacOS-like system with Autotools, Make, and a new-enough C/C++ compiler.
 
@@ -16,6 +16,9 @@ LD_LIBRARY_PATH=$HOME/gcc-devel:$LD_LIBRARY_PATH cmake --build build
 Passing environment variable LD_LIBRARY_PATH to the build process is necessary to avoid missing .so messages when building GCC.
 
 That will build GCC and install it to ~/gcc-devel.
+
+By default, a recent release of GCC is built.
+To specify GCC source URL, for example to build a [snapshot](https://gcc.gnu.org/pub/gcc/snapshots/LATEST-12/) specify the source archive URL with `-Dgcc_url=<url>`.
 
 ## Advantages
 

@@ -18,6 +18,12 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   )
 endif()
 
+option(use_isl "Use ISL Graphite optimization")
+
+if(NOT gcc_url)
+  set(gcc_url https://bigsearcher.com/mirrors/gcc/releases/gcc-11.2.0/gcc-11.2.0.tar.xz)
+endif()
+
 set(CMAKE_TLS_VERIFY true)
 
 set_directory_properties(PROPERTIES EP_UPDATE_DISCONNECTED true)
