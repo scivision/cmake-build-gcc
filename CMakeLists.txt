@@ -4,7 +4,7 @@ project(BuildGCC LANGUAGES C CXX)
 
 include(ExternalProject)
 
-option(use_isl "Use ISL Graphite optimization")
+option(use_isl "Use ISL Graphite optimization" true)
 option(cpp "enable C++ in GCC" true)
 option(fortran "enable Fortran in GCC" true)
 option(gcov "enable Gcov coverage tool" true)
