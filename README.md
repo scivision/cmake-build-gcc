@@ -2,8 +2,11 @@
 
 Build [GCC](https://gcc.gnu.org/install/) natively for C, C++, Fortran languages.
 Builds prerequisite libraries GMP, MPFR, and MPC from CMake.
-There is optional ISL for Graphite optimizations, which takes longer to build GCC itself.
-By default ISL is off; enable ISL with `-Duse_isl=on`.
+
+The optional ISL for Graphite optimizations is by default on; disable ISL with `-Duse_isl=off`.
+
+By default C++ and Fortran are enabled.
+If desired to disable, do like `-Dcpp=off` or `-Dfortran=off`.
 
 This avoids needing to manually download and configure each project.
 This assumes fundamental [prerequisites](https://gcc.gnu.org/install/prerequisites.html)
@@ -26,7 +29,7 @@ Passing environment variable LD_LIBRARY_PATH to the build process is necessary t
 That will build GCC and install it to ~/gcc-devel.
 
 By default, a recent release of GCC is built.
-To specify GCC source URL, for example to build a [snapshot](https://gcc.gnu.org/pub/gcc/snapshots/LATEST-12/) specify the source archive URL with `-Dgcc_url=<url>`.
+GCC [snapshot](https://gcc.gnu.org/pub/gcc/snapshots/LATEST-12/) may also be built by changing the "gcc_url" variable in CMakeLists.txt.
 
 ## Caveats
 

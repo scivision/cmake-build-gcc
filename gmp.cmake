@@ -2,8 +2,6 @@ set(gmp_args
 --prefix=${CMAKE_INSTALL_PREFIX}
 )
 
-set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
-
 ExternalProject_Add(GMP
 URL ${gmp_url}
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gmp_args} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS}

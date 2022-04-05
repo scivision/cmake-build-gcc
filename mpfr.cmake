@@ -3,8 +3,6 @@ set(mpfr_args
 --with-gmp=${GMP_ROOT}
 )
 
-set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.0.tar.xz)
-
 ExternalProject_Add(MPFR
 URL ${mpfr_url}
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${mpfr_args} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS}

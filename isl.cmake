@@ -8,8 +8,6 @@ set(isl_args
 --with-gmp-prefix=${GMP_ROOT}
 )
 
-set(isl_url https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2)
-
 ExternalProject_Add(ISL
 URL ${isl_url}
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${isl_args} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS}

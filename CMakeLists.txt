@@ -4,6 +4,17 @@ project(BuildGCC LANGUAGES C CXX)
 
 include(ExternalProject)
 
+option(use_isl "Use ISL Graphite optimization")
+option(cpp "enable C++ in GCC" true)
+option(fortran "enable Fortran in GCC" true)
+
+# --- URLs
+
+set(gcc_url https://bigsearcher.com/mirrors/gcc/releases/gcc-11.2.0/gcc-11.2.0.tar.xz)
+set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
+set(isl_url https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2)
+set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz)
+set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.0.tar.xz)
 
 # --- auto-ignore build directory
 if(NOT EXISTS ${PROJECT_BINARY_DIR}/.gitignore)
@@ -16,12 +27,6 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   message(FATAL_ERROR "please specify install prefix like
   cmake -B build -DCMAKE_INSTALL_PREFIX=~/gcc-dev"
   )
-endif()
-
-option(use_isl "Use ISL Graphite optimization")
-
-if(NOT gcc_url)
-  set(gcc_url https://bigsearcher.com/mirrors/gcc/releases/gcc-11.2.0/gcc-11.2.0.tar.xz)
 endif()
 
 set(CMAKE_TLS_VERIFY true)
