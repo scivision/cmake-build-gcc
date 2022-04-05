@@ -21,7 +21,7 @@ GCC will take 10s of minutes to build, even on a powerful workstation.
 ```sh
 cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/gcc-devel
 
-LD_LIBRARY_PATH=$HOME/gcc-devel:$LD_LIBRARY_PATH cmake --build build
+LD_LIBRARY_PATH=$HOME/gcc-devel/lib:$LD_LIBRARY_PATH cmake --build build
 ```
 
 Passing environment variable LD_LIBRARY_PATH to the build process is necessary to avoid missing .so messages when building GCC.
