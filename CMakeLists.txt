@@ -10,7 +10,7 @@ option(fortran "enable Fortran in GCC" true)
 
 # --- URLs
 
-set(gcc_url https://bigsearcher.com/mirrors/gcc/releases/gcc-11.2.0/gcc-11.2.0.tar.xz)
+set(gcc_url https://github.com/gcc-mirror/gcc/archive/refs/tags/releases/gcc-11.2.0.tar.gz)
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
 set(isl_url https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2)
 set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz)

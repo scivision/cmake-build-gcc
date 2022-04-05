@@ -28,7 +28,7 @@ Passing environment variable LD_LIBRARY_PATH to the build process is necessary t
 
 That will build GCC and install it to ~/gcc-devel.
 
-By default, a recent release of GCC is built.
+By default, a recent release of GCC is built using source from the [GitHub mirror](https://gcc.gnu.org/wiki/GitMirror).
 GCC [snapshot](https://gcc.gnu.org/pub/gcc/snapshots/LATEST-12/) may also be built by changing the "gcc_url" variable in CMakeLists.txt.
 
 ## Caveats
