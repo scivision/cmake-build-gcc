@@ -6,7 +6,10 @@ Builds prerequisite libraries GMP, MPFR, and MPC from CMake.
 The optional ISL for Graphite optimizations is by default on; disable ISL with `-Duse_isl=off`.
 
 By default C++ and Fortran are enabled.
-If desired to disable, do like `-Dcpp=off` or `-Dfortran=off`.
+If desired to disable, add `-Dcpp=off` or `-Dfortran=off` to the CMake arguments.
+
+By default Gcov coverage tool is enabled.
+If desired to disable, add `-Dgcov=off` to the CMake arguments.
 
 This avoids needing to manually download and configure each project.
 This assumes fundamental [prerequisites](https://gcc.gnu.org/install/prerequisites.html)
