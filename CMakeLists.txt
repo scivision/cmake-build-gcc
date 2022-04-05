@@ -8,6 +8,7 @@ option(use_isl "Use ISL Graphite optimization")
 option(cpp "enable C++ in GCC" true)
 option(fortran "enable Fortran in GCC" true)
 option(gcov "enable Gcov coverage tool" true)
+option(lto "enable LTO" true)
 
 # --- URLs
 

@@ -11,6 +11,9 @@ If desired to disable, add `-Dcpp=off` or `-Dfortran=off` to the CMake arguments
 By default Gcov coverage tool is enabled.
 If desired to disable, add `-Dgcov=off` to the CMake arguments.
 
+By default link time optimization is enabled.
+If desired to disable, add `-Dlto=off` to the CMake arguments.
+
 This avoids needing to manually download and configure each project.
 This assumes fundamental [prerequisites](https://gcc.gnu.org/install/prerequisites.html)
 such as libc, Autotools, Make, CMake are present.

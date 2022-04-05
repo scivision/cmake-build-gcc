@@ -22,6 +22,10 @@ if(NOT gcov)
   list(APPEND gcc_args --disable-gcov)
 endif()
 
+if(NOT lto)
+  list(APPEND gcc_args --disable-lto)
+endif()
+
 ExternalProject_Add(gcc_compiler
 URL ${gcc_url}
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gcc_args} ${gcc_lang} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS}
