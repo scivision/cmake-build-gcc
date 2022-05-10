@@ -37,6 +37,22 @@ That will build GCC and install it to ~/gcc-devel.
 By default, a recent release of GCC is built using source from the [GitHub mirror](https://gcc.gnu.org/wiki/GitMirror).
 GCC [snapshot](https://gcc.gnu.org/pub/gcc/snapshots/LATEST-12/) may also be built by changing the "gcc_url" variable in CMakeLists.txt.
 
+## Usage
+
+Source these variables (according to the paths on your system) each time using this particular GCC is desired:
+
+```
+#!/bin/sh
+
+cp=$HOME/gcc-devel
+
+export LD_LIBRARY_PATH=$cp/lib64:$cp/lib:$LD_LIBRARY_PATH
+
+export PATH=$cp/bin:$PATH
+
+export CC=$cp/bin/gcc CXX=$cp/bin/g++ FC=$cp/bin/gfortran
+```
+
 ## Caveats
 
 Numerous platforms require specific patches that we don't currently implement, though it would usually be straightforward to do so.

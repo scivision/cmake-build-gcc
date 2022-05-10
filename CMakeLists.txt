@@ -10,9 +10,11 @@ option(fortran "enable Fortran in GCC" true)
 option(gcov "enable Gcov coverage tool" true)
 option(lto "enable LTO" true)
 
+set(gcc_version 12.1.0)
+
 # --- URLs
 
-set(gcc_url https://github.com/gcc-mirror/gcc/archive/refs/tags/releases/gcc-11.3.0.tar.gz)
+set(gcc_url https://github.com/gcc-mirror/gcc/archive/refs/tags/releases/gcc-${gcc_version}.tar.gz)
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
 set(isl_url https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2)
 set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz)
