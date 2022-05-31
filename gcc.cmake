@@ -26,8 +26,11 @@ if(NOT lto)
   list(APPEND gcc_args --disable-lto)
 endif()
 
-ExternalProject_Add(gcc_compiler
-URL ${gcc_url}
+
+ExternalProject_Add(gcc
+GIT_REPOSITORY ${gcc_url}
+GIT_TAG ${gcc_tag}
+GIT_SHALLOW true
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gcc_args} ${gcc_lang} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS}
 BUILD_COMMAND ${MAKE_EXECUTABLE} -j
 INSTALL_COMMAND ${MAKE_EXECUTABLE} -j install

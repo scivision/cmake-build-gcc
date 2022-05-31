@@ -10,11 +10,22 @@ option(fortran "enable Fortran in GCC" true)
 option(gcov "enable Gcov coverage tool" true)
 option(lto "enable LTO" true)
 
-set(gcc_version 12.1.0)
+if(NOT gcc_tag)
+  set(gcc_tag releases/gcc-12.1.0)
+endif()
 
 # --- URLs
 
-set(gcc_url https://github.com/gcc-mirror/gcc/archive/refs/tags/releases/gcc-${gcc_version}.tar.gz)
+if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
+  set(gcc_url https://github.com/iains/gcc-darwin-arm64.git)
+  set(gcc_tag master-wip-apple-si)
+else()
+  set(gcc_url https://github.com/gcc-mirror/gcc.git)
+endif()
+
+
+message(STATUS "GCC: ${gcc_url} ${gcc_tag}")
+
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
 set(isl_url https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2)
 set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz)
