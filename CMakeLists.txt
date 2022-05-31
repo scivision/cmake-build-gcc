@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20...3.23)
+cmake_minimum_required(VERSION 3.20)
 
 project(BuildGCC LANGUAGES C CXX)
 
@@ -75,11 +75,14 @@ if(APPLE)
   PATHS /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
   )
   if(macsys)
-    cmake_path(GET macsys PARENT_PATH lmac)
-    string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${lmac}")
-    string(APPEND LDFLAGS " -Wl,-rpath,${lmac}")
+    cmake_path(GET macsys PARENT_PATH native_lib)
+    string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${native_lib}")
+    string(APPEND LDFLAGS " -Wl,-rpath,${native_lib}")
   endif()
 endif()
+
+message(STATUS "CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
+message(STATUS "LDFLAGS: ${LDFLAGS}")
 
 foreach(t gmp isl mpfr mpc gcc)
   include(${t}.cmake)
