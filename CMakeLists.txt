@@ -43,6 +43,13 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   )
 endif()
 
+# --- limit CPU to avoid slowdown due to several hundred parallel threads
+include(ProcessorCount)
+ProcessorCount(NCPU)
+if(NCPU LESS 1)
+  set(NCPU)
+endif()
+
 set(CMAKE_TLS_VERIFY true)
 
 set_directory_properties(PROPERTIES EP_UPDATE_DISCONNECTED true)
