@@ -4,6 +4,7 @@ set(gcc_args
 --with-mpc=${MPC_ROOT}
 --with-mpfr=${MPFR_ROOT}
 --disable-multilib
+--disable-nls
 )
 
 set(gcc_lang --enable-languages=c)

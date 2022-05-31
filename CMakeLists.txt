@@ -53,6 +53,27 @@ set(LDFLAGS $ENV{LDFLAGS})
 string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib")
 string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
 
+if(APPLE)
+  find_path(macinc
+  NAMES stdio.h
+  PATHS /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
+  )
+  if(macinc)
+    string(APPEND CMAKE_C_FLAGS " -I${macinc}")
+  endif()
+
+  find_library(macsys
+  NAMES System
+  NO_DEFAULT_PATH
+  PATHS /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
+  )
+  if(macsys)
+    cmake_path(GET macsys PARENT_PATH lmac)
+    string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${lmac}")
+    string(APPEND LDFLAGS " -Wl,-rpath,${lmac}")
+  endif()
+endif()
+
 foreach(t gmp isl mpfr mpc gcc)
   include(${t}.cmake)
 endforeach()
