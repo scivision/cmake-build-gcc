@@ -3,7 +3,6 @@ set(gcc_args
 --with-gmp=${GMP_ROOT}
 --with-mpc=${MPC_ROOT}
 --with-mpfr=${MPFR_ROOT}
---with-zstd=${ZSTD_ROOT}
 --disable-multilib
 --disable-nls
 )
@@ -20,7 +19,7 @@ if(fortran)
   string(APPEND gcc_lang ",fortran")
 endif()
 
-if(use_isl)
+if(isl)
   list(APPEND gcc_args --with-isl=${ISL_ROOT})
 endif()
 
@@ -30,6 +29,10 @@ endif()
 
 if(NOT lto)
   list(APPEND gcc_args --disable-lto)
+endif()
+
+if(zstd)
+  list(APPEND gcc_args --with-zstd=${ZSTD_ROOT} --with-zstd-lib=${ZSTD_ROOT}/${CMAKE_INSTALL_LIBDIR})
 endif()
 
 

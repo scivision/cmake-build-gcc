@@ -1,4 +1,4 @@
-if(NOT use_isl)
+if(NOT isl)
   add_custom_target(ISL)
   return()
 endif()

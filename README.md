@@ -25,7 +25,7 @@ is enabled to help ensure a working, performant GCC.
 These options are by default enabled, but may be disabled by adding the CMake configure arguments:
 
 disable ISL for Graphite optimizations
-: `-Duse_isl=off`
+: `-Disl=off`
 
 disable C++
 : `-Dcpp=off`
@@ -38,6 +38,9 @@ disable Gcov coverage tool
 
 disable link time optimization
 : `-Dlto=off`
+
+disable Zstd compression (fallback to Zlib)
+: `-Dzstd=off`
 
 ## Build
 

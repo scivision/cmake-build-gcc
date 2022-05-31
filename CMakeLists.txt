@@ -3,12 +3,14 @@ cmake_minimum_required(VERSION 3.20)
 project(BuildGCC LANGUAGES C CXX)
 
 include(ExternalProject)
+include(GNUInstallDirs)
 
-option(use_isl "Use ISL Graphite optimization" true)
+option(isl "Use ISL Graphite optimization" true)
 option(cpp "enable C++ in GCC" true)
 option(fortran "enable Fortran in GCC" true)
 option(gcov "enable Gcov coverage tool" true)
 option(lto "enable LTO" true)
+option(zstd "enable ZSTD compression" true)
 
 if(NOT gcc_tag)
   set(gcc_tag releases/gcc-12.1.0)
