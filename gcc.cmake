@@ -3,6 +3,7 @@ set(gcc_args
 --with-gmp=${GMP_ROOT}
 --with-mpc=${MPC_ROOT}
 --with-mpfr=${MPFR_ROOT}
+--with-zstd=${ZSTD_ROOT}
 --disable-multilib
 --disable-nls
 )
@@ -32,7 +33,7 @@ if(NOT lto)
 endif()
 
 
-ExternalProject_Add(gcc
+ExternalProject_Add(GCC
 GIT_REPOSITORY ${gcc_url}
 GIT_TAG ${gcc_tag}
 GIT_SHALLOW true
@@ -42,5 +43,5 @@ INSTALL_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} install
 TEST_COMMAND ""
 INACTIVITY_TIMEOUT 60
 CONFIGURE_HANDLED_BY_BUILD ON
-DEPENDS "GMP;ISL;MPC;MPFR"
+DEPENDS "GMP;ISL;MPC;MPFR;ZSTD"
 )

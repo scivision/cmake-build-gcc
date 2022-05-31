@@ -31,6 +31,9 @@ set(isl_url https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2)
 set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz)
 set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.0.tar.xz)
 
+set(zstd_url https://github.com/facebook/zstd.git)
+set(zstd_tag v1.5.2)
+
 # --- auto-ignore build directory
 if(NOT EXISTS ${PROJECT_BINARY_DIR}/.gitignore)
   file(WRITE ${PROJECT_BINARY_DIR}/.gitignore "*")
@@ -51,6 +54,7 @@ if(NCPU LESS 1)
 endif()
 
 set(CMAKE_TLS_VERIFY true)
+set(BUILD_SHARED_LIBS true)
 
 set_directory_properties(PROPERTIES EP_UPDATE_DISCONNECTED true)
 
@@ -84,6 +88,6 @@ endif()
 message(STATUS "CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
 message(STATUS "LDFLAGS: ${LDFLAGS}")
 
-foreach(t gmp isl mpfr mpc gcc)
+foreach(t gmp isl mpfr mpc zstd gcc)
   include(${t}.cmake)
 endforeach()
