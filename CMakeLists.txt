@@ -54,12 +54,12 @@ string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib")
 string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
 
 if(APPLE)
-  find_path(macinc
+  find_path(native_include
   NAMES stdio.h
   PATHS /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
   )
-  if(macinc)
-    string(APPEND CMAKE_C_FLAGS " -I${macinc}")
+  if(native_include)
+    string(APPEND CMAKE_C_FLAGS " -I${native_include}")
   endif()
 
   find_library(macsys

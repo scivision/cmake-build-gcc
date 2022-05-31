@@ -7,6 +7,10 @@ set(gcc_args
 --disable-nls
 )
 
+if(native_include)
+  list(APPEND gcc_args --with-native-system-header-dir=${native_include})
+endif()
+
 set(gcc_lang --enable-languages=c)
 if(cpp)
   string(APPEND gcc_lang ",c++")
