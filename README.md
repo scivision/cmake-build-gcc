@@ -67,7 +67,7 @@ Currently the MacOS Apple Silicon build uses the GCC gcc-darwin-arm64 fork.
 ```sh
 cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/gcc-devel
 
-LIBRARY_PATH="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib:$LIBRARY_PATH" cmake --build build
+LIBRARY_PATH="$HOME/gcc-devel/lib:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib:$LIBRARY_PATH" cmake --build build
 ```
 
 assuming that file exists:
