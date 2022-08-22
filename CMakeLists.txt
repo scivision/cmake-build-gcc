@@ -1,9 +1,11 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.13...3.25)
 
 project(BuildGCC LANGUAGES C CXX)
 
 include(ExternalProject)
 include(GNUInstallDirs)
+
+include(ExtProj.cmake)
 
 option(isl "Use ISL Graphite optimization" true)
 option(cpp "enable C++ in GCC" true)
@@ -13,7 +15,7 @@ option(lto "enable LTO" true)
 option(zstd "enable ZSTD compression" true)
 
 if(NOT gcc_tag)
-  set(gcc_tag releases/gcc-12.1.0)
+  set(gcc_tag releases/gcc-12.2.0)
 endif()
 
 # --- URLs
@@ -42,15 +44,11 @@ if(NOT EXISTS ${PROJECT_BINARY_DIR}/.gitignore)
 endif()
 
 # users can specify like "cmake -B build -DCMAKE_INSTALL_PREFIX=~/mydir"
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  message(FATAL_ERROR "please specify install prefix like
-  cmake -B build -DCMAKE_INSTALL_PREFIX=~/gcc-dev"
-  )
-endif()
+message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
+file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX})
 
 # --- limit CPU to avoid slowdown due to several hundred parallel threads
-include(ProcessorCount)
-ProcessorCount(NCPU)
+cmake_host_system_information(RESULT NCPU QUERY NUMBER_OF_PHYSICAL_CORES)
 if(NCPU LESS 1)
   set(NCPU)
 endif()
@@ -81,7 +79,7 @@ if(APPLE)
   PATHS /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
   )
   if(macsys)
-    cmake_path(GET macsys PARENT_PATH native_lib)
+    get_filename_component(native_lib ${macsys} DIRECTORY)
     string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${native_lib}")
     string(APPEND LDFLAGS " -Wl,-rpath,${native_lib}")
   endif()
@@ -90,6 +88,22 @@ endif()
 message(STATUS "CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
 message(STATUS "LDFLAGS: ${LDFLAGS}")
 
-foreach(t gmp isl mpfr mpc zstd gcc)
-  include(${t}.cmake)
-endforeach()
+# --- GMP
+extproj(GMP ${gmp_url} "" "")
+set(GMP_ROOT ${CMAKE_INSTALL_PREFIX})
+
+# --- ISL
+extproj(ISL ${isl_url} "--with-gmp-prefix=${GMP_ROOT}" "GMP")
+set(ISL_ROOT ${CMAKE_INSTALL_PREFIX})
+
+# --- MPFR
+extproj(MPFR ${mpfr_url} "--with-gmp=${GMP_ROOT}" "GMP")
+set(MPFR_ROOT ${CMAKE_INSTALL_PREFIX})
+
+# --- MPC
+extproj(MPC ${mpc_url} "--with-gmp=${GMP_ROOT};--with-mpfr=${MPFR_ROOT}" "GMP;MPFR")
+set(MPC_ROOT ${CMAKE_INSTALL_PREFIX})
+
+include(zstd.cmake)
+
+include(gcc.cmake)
