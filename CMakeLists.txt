@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.13...3.25)
 
 project(BuildGCC LANGUAGES C CXX)
 
-include(ExternalProject)
 include(GNUInstallDirs)
 
 include(ExtProj.cmake)
