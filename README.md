@@ -55,28 +55,13 @@ The following commands build GCC and install it to ~/gcc-devel.
 By default, a recent release of GCC is built using source from the
 [GCC GitHub mirror](https://gcc.gnu.org/wiki/GitMirror).
 
-### Linux
-
 ```sh
-cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/gcc-devel
-
-LD_LIBRARY_PATH=$HOME/gcc-devel/lib:$LD_LIBRARY_PATH cmake --build build
+cmake -Dprefix=$HOME/gcc-devel -P build_gcc.cmake
 ```
 
-On Linux, passing environment variable LD_LIBRARY_PATH to the build process is necessary to avoid missing .so messages when building GCC.
+This script sets environment variables during the build phase to avoid missing .so messages when building GCC.
 
-### MacOS
-
-Currently the MacOS Apple Silicon build uses the GCC gcc-darwin-arm64 fork.
-
-```sh
-cmake -B build -DCMAKE_INSTALL_PREFIX=$HOME/gcc-devel
-
-LIBRARY_PATH="$HOME/gcc-devel/lib:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib:$LIBRARY_PATH" cmake --build build
-```
-
-assuming that file exists:
-"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd"
+The MacOS Apple Silicon build uses the GCC gcc-darwin-arm64 fork.
 
 ## Usage
 
