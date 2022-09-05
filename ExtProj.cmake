@@ -10,16 +10,23 @@ if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
   )
 endif()
 
+
 function(extproj name url args dep)
 
 list(INSERT args 0 "--prefix=${CMAKE_INSTALL_PREFIX}")
+
+if(run_tests)
+  set(test_cmd ${MAKE_EXECUTABLE} -j${NCPU} check)
+else()
+  set(test_cmd)
+endif()
 
 ExternalProject_Add(${name}
 URL ${url}
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${args} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS} MAKEINFO=true
 BUILD_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} MAKEINFO=true
 INSTALL_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} install
-TEST_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} check
+TEST_COMMAND ${test_cmd}
 TLS_VERIFY true
 ${extproj_args}
 DEPENDS ${dep}

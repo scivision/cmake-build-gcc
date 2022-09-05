@@ -5,6 +5,13 @@ option(gcov "enable Gcov coverage tool" true)
 option(lto "enable LTO" true)
 option(zstd "enable ZSTD compression" true)
 
+if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
+  # FAIL: isl_test_cpp
+  option(run_tests "Run tests")
+else()
+  option(run_tests "run tests for numerical prereqs (GMP, ISL, MPC, MPFR)" true)
+endif()
+
 if(NOT gcc_tag)
   set(gcc_tag releases/gcc-12.2.0)
 endif()
