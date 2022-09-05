@@ -22,7 +22,8 @@ if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   set(gcc_url https://github.com/iains/gcc-darwin-arm64.git)
   set(gcc_tag master-wip-apple-si)
 else()
-  set(gcc_url https://github.com/gcc-mirror/gcc.git)
+  set(gcc_url https://gcc.gnu.org/git/gcc.git)
+  # set(gcc_url https://github.com/gcc-mirror/gcc.git)  # this works too
 endif()
 
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
