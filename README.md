@@ -20,6 +20,11 @@ The 3-stage
 [compiler bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(compilers))
 is enabled to help ensure a working, performant GCC.
 
+## Prerequsites
+
+* CentOS: `dnf install cmake make autoconf autoconf-archive libtool`
+* Ubuntu: `apt install cmake make autoconf autoconf-archive libtool`
+
 ## Options
 
 These options are by default enabled, but may be disabled by adding the CMake configure arguments:
