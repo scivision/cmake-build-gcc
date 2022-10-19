@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.13...3.25)
 
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
+  message(FATAL_ERROR "In-source builds are not allowed. Try 'cmake -B build'")
+endif()
+
 project(BuildGCC LANGUAGES C CXX)
 
 include(GNUInstallDirs)
-
-include(ExtProj.cmake)
+include(cmake/ExtProj.cmake)
 
 include(cmake/options.cmake)
 
@@ -56,6 +59,6 @@ set(MPFR_ROOT ${CMAKE_INSTALL_PREFIX})
 extproj(MPC ${mpc_url} "--with-gmp=${GMP_ROOT};--with-mpfr=${MPFR_ROOT}" "GMP;MPFR")
 set(MPC_ROOT ${CMAKE_INSTALL_PREFIX})
 
-include(zstd.cmake)
+include(cmake/zstd.cmake)
 
-include(gcc.cmake)
+include(cmake/gcc.cmake)

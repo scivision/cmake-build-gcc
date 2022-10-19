@@ -7,7 +7,7 @@ option(zstd "enable ZSTD compression" true)
 
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   # FAIL: isl_test_cpp
-  option(run_tests "Run tests")
+  option(run_tests "run tests for numerical prereqs (GMP, ISL, MPC, MPFR)")
 else()
   option(run_tests "run tests for numerical prereqs (GMP, ISL, MPC, MPFR)" true)
 endif()
@@ -23,7 +23,7 @@ if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   set(gcc_tag master-wip-apple-si)
 else()
   set(gcc_url https://gcc.gnu.org/git/gcc.git)
-  # set(gcc_url https://github.com/gcc-mirror/gcc.git)  # this works too
+  # https://github.com/gcc-mirror/gcc.git
 endif()
 
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)

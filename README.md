@@ -56,7 +56,7 @@ By default, a recent release of GCC is built using source from the
 [GCC GitHub mirror](https://gcc.gnu.org/wiki/GitMirror).
 
 ```sh
-cmake -Dprefix=$HOME/gcc-devel -P build_gcc.cmake
+cmake -Dprefix=$HOME/gcc-devel -P build.cmake
 ```
 
 This script sets environment variables during the build phase to avoid missing .so messages when building GCC.
@@ -68,6 +68,8 @@ The MacOS Apple Silicon build uses the GCC gcc-darwin-arm64 fork.
 Make a script like below and source it to use this GCC:
 
 ```sh
+#!/usr/bin/env bash
+
 prefix=$HOME/gcc-devel
 
 case "$OSTYPE" in

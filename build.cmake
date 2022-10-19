@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
 
+if(NOT bindir)
+  set(bindir ${CMAKE_CURRENT_LIST_DIR}/build)
+endif()
+get_filename_component(bindir ${bindir} ABSOLUTE)
+
 if(NOT prefix)
   set(prefix ${bindir}/local)
 endif()
@@ -7,7 +12,6 @@ get_filename_component(prefix ${prefix} ABSOLUTE)
 
 set(conf_args -DCMAKE_INSTALL_PREFIX:PATH=${prefix})
 
-set(bindir ${CMAKE_CURRENT_LIST_DIR}/build)
 
 execute_process(COMMAND ${CMAKE_COMMAND}
 -G "Unix Makefiles"
