@@ -12,6 +12,10 @@ else()
   option(run_tests "run tests for numerical prereqs (GMP, ISL, MPC, MPFR)" true)
 endif()
 
+if(version)
+  set(gcc_tag "releases/gcc-${version}")
+endif()
+
 if(NOT gcc_tag)
   set(gcc_tag releases/gcc-12.2.0)
 endif()
@@ -27,7 +31,7 @@ else()
 endif()
 
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
-set(isl_url https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2)
+set(isl_url https://libisl.sourceforge.io/isl-0.25.tar.xz)
 set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz)
 set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.0.tar.xz)
 

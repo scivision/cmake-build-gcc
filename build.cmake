@@ -11,6 +11,9 @@ endif()
 get_filename_component(prefix ${prefix} ABSOLUTE)
 
 set(conf_args -DCMAKE_INSTALL_PREFIX:PATH=${prefix})
+if(version)
+  list(APPEND conf_args -Dversion=${version})
+endif()
 
 
 execute_process(COMMAND ${CMAKE_COMMAND}
