@@ -18,19 +18,12 @@ string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib")
 string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
 
 if(APPLE)
-  find_path(native_include
-  NAMES stdio.h
-  PATHS /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
-  )
+  find_path(native_include NAMES stdio.h)
   if(native_include)
     string(APPEND CMAKE_C_FLAGS " -I${native_include}")
   endif()
 
-  find_library(macsys
-  NAMES System
-  NO_DEFAULT_PATH
-  PATHS /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
-  )
+  find_library(macsys NAMES System)
   if(macsys)
     get_filename_component(native_lib ${macsys} DIRECTORY)
     string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${native_lib}")
