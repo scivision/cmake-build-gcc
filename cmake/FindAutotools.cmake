@@ -20,6 +20,18 @@ find_program(AUTOCONF_EXECUTABLE
 NAMES autoconf
 DOC "Autoconf")
 
+if(AUTOCONF_EXECUTABLE)
+  execute_process(COMMAND ${AUTOCONF_EXECUTABLE} --version
+  RESULT_VARIABLE ret
+  OUTPUT_VARIABLE out
+  )
+  message(DEBUG "${out}")
+  if(ret EQUAL 0)
+    string(REGEX MATCH "autoconf .*([0-9]+\\.[0-9]+)" _m "${out}")
+    set(AUTOCONF_VERSION "${CMAKE_MATCH_1}")
+  endif()
+endif()
+
 find_program(AUTOMAKE_EXECUTABLE
 NAMES automake
 DOC "Automake")
@@ -27,7 +39,14 @@ DOC "Automake")
 find_program(LIBTOOL_EXECUTABLE
 NAMES glibtool libtool
 NAMES_PER_DIR
-DOC "Libtool")
+DOC "libtool"
+)
+
+find_program(M4_EXECUTABLE
+NAMES gm4 m4
+NAMES_PER_DIR
+DOC "M4"
+)
 
 find_program(MAKE_EXECUTABLE
 NAMES gmake make
@@ -37,5 +56,6 @@ DOC "GNU Make")
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Autotools
-REQUIRED_VARS AUTOCONF_EXECUTABLE AUTOMAKE_EXECUTABLE LIBTOOL_EXECUTABLE MAKE_EXECUTABLE
+VERSION_VAR AUTOCONF_VERSION
+REQUIRED_VARS AUTOCONF_EXECUTABLE AUTOMAKE_EXECUTABLE MAKE_EXECUTABLE
 )
