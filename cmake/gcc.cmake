@@ -36,16 +36,24 @@ if(zstd)
 endif()
 
 
+if(gcc_url MATCHES ".git$")
+  set(gcc_download
+  GIT_REPOSITORY ${gcc_url}
+  GIT_TAG ${gcc_tag}
+  GIT_SHALLOW true
+  GIT_PROGRESS true)
+else()
+  set(gcc_download URL ${gcc_url})
+endif()
+
 ExternalProject_Add(GCC
-GIT_REPOSITORY ${gcc_url}
-GIT_TAG ${gcc_tag}
-GIT_SHALLOW true
-GIT_PROGRESS true
+${gcc_download}
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gcc_args} ${gcc_lang} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS}
 BUILD_COMMAND ${MAKE_EXECUTABLE} -j${NCPU}
 INSTALL_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} install
 TEST_COMMAND ""
-TLS_VERIFY true
-${extproj_args}
 DEPENDS "GMP;ISL;MPC;MPFR;ZSTD"
+TLS_VERIFY true
+CONFIGURE_HANDLED_BY_BUILD ON
+INACTIVITY_TIMEOUT 60
 )

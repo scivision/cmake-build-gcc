@@ -12,13 +12,13 @@ else()
   option(run_tests "run tests for numerical prereqs (GMP, ISL, MPC, MPFR)" true)
 endif()
 
-if(version)
-  set(gcc_tag "releases/gcc-${version}")
+if(NOT version)
+  set(version 12.2.0)
 endif()
 
-if(NOT gcc_tag)
-  set(gcc_tag releases/gcc-12.2.0)
-endif()
+# if(NOT gcc_tag)
+#   set(gcc_tag releases/gcc-12.2.0)
+# endif()
 
 # --- URLs
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
@@ -29,7 +29,8 @@ if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   set(gcc_url https://github.com/iains/gcc-darwin-arm64.git)
   set(gcc_tag master-wip-apple-si)
 else()
-  set(gcc_url https://gcc.gnu.org/git/gcc.git)
+  set(gcc_url https://ftp.gnu.org/gnu/gcc/gcc-${version}/gcc-${version}.tar.xz)
+  # https://gcc.gnu.org/git/gcc.git
   # https://github.com/gcc-mirror/gcc.git
 endif()
 

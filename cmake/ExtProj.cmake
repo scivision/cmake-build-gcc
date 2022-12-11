@@ -1,15 +1,6 @@
 # This is for autotools based projects
 include(ExternalProject)
 
-set(extproj_args)
-
-if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
-  list(APPEND extproj_args
-  INACTIVITY_TIMEOUT 60
-  CONFIGURE_HANDLED_BY_BUILD ON
-  )
-endif()
-
 
 function(extproj name url args dep)
 
@@ -27,9 +18,10 @@ CONFIGURE_COMMAND <SOURCE_DIR>/configure ${args} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS
 BUILD_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} MAKEINFO=true
 INSTALL_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} install
 TEST_COMMAND ${test_cmd}
-TLS_VERIFY true
-${extproj_args}
 DEPENDS ${dep}
+TLS_VERIFY true
+CONFIGURE_HANDLED_BY_BUILD ON
+INACTIVITY_TIMEOUT 60
 )
 # MAKEINFO=true disables docs using makeinfo to save time and avoid missing makeinfo error
 

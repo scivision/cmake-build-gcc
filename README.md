@@ -32,9 +32,6 @@ These options are by default enabled, but may be disabled by adding the CMake co
 Set GCC version
 : `-Dversion=12.2.0`
 
-Set GCC Git tag
-: `-Dgcc_tag=releases/gcc-12.2.0`
-
 disable ISL for Graphite optimizations
 : `-Disl=off`
 
