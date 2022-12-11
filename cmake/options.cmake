@@ -35,7 +35,14 @@ endif()
 
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
 set(isl_url https://libisl.sourceforge.io/isl-0.25.tar.xz)
-set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.3.0.tar.gz)
+
+# MPC 1.3.0 has missing #include <stdio.h> in mpc.h, leading to GCC failure to find mpc.
+# this may have been fixed in https://gitlab.inria.fr/mpc/mpc/-/commit/e944aa454e60cbff8ab4e8c70dd974083398378f
+# mpc.h:287:35: error: unknown type name 'FILE'
+# __MPC_DECLSPEC void mpcr_out_str (FILE *f, mpcr_srcptr r);
+# mpc.h:287:35: note: 'FILE' is defined in header '<stdio.h>'; did you forget to '#include <stdio.h>'?
+set(mpc_version 1.2.1)
+set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-${mpc_version}.tar.gz)
 
 set(mpfr_version 4.1.1)
 if(AUTOCONF_VERSION VERSION_LESS 2.71)
