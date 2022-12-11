@@ -21,6 +21,9 @@ if(NOT gcc_tag)
 endif()
 
 # --- URLs
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+
+find_package(Autotools REQUIRED)
 
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   set(gcc_url https://github.com/iains/gcc-darwin-arm64.git)
@@ -32,13 +35,17 @@ endif()
 
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
 set(isl_url https://libisl.sourceforge.io/isl-0.25.tar.xz)
-set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz)
-set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.0.tar.xz)
+set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-1.3.0.tar.gz)
+
+set(mpfr_version 4.1.1)
+if(AUTOCONF_VERSION VERSION_LESS 2.71)
+  set(mpfr_version 4.1.0)
+endif()
+set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-${mpfr_version}.tar.xz)
 
 set(zstd_url https://github.com/facebook/zstd.git)
 set(zstd_tag v1.5.2)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
 # --- auto-ignore build directory
 if(NOT EXISTS ${PROJECT_BINARY_DIR}/.gitignore)
@@ -58,4 +65,4 @@ endif()
 set(CMAKE_TLS_VERIFY true)
 set(BUILD_SHARED_LIBS true)
 
-set_directory_properties(PROPERTIES EP_UPDATE_DISCONNECTED true)
+set_property(DIRECTORY PROPERTY EP_UPDATE_DISCONNECTED true)

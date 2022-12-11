@@ -11,8 +11,6 @@ include(cmake/ExtProj.cmake)
 
 include(cmake/options.cmake)
 
-find_package(Autotools REQUIRED)
-
 set(LDFLAGS $ENV{LDFLAGS})
 string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib")
 string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
