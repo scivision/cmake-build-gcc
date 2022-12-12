@@ -16,12 +16,27 @@ string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib")
 string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
 
 if(APPLE)
-  find_path(native_include NAMES stdio.h)
+  execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
+  RESULT_VARIABLE ret
+  OUTPUT_VARIABLE out
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+  message(STATUS "SDK Hint: ${out}")
+
+  set(CMAKE_FIND_FRAMEWORK "NEVER")
+  set(CMAKE_FIND_LIBRARY_PREFIXES "")
+
+  find_path(native_include NAMES stdio.h
+  HINTS ${out}
+  )
   if(native_include)
     string(APPEND CMAKE_C_FLAGS " -I${native_include}")
   endif()
 
-  find_library(macsys NAMES System)
+  find_library(macsys NAMES System
+  HINTS ${out}/System/Library/Frameworks/System.framework
+  )
+
   if(macsys)
     get_filename_component(native_lib ${macsys} DIRECTORY)
     string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${native_lib}")

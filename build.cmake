@@ -31,19 +31,30 @@ endif()
 # --- build
 
 if(APPLE)
-  find_library(macsys
-    NAMES System
-    PATHS /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
+  execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
+  RESULT_VARIABLE ret
+  OUTPUT_VARIABLE out
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+  message(STATUS "SDK Hint: ${out}")
+
+  set(CMAKE_FIND_FRAMEWORK "NEVER")
+  set(CMAKE_FIND_LIBRARY_PREFIXES "")
+  find_library(macsys NAMES System
+  PATHS ${out}/System/Library/Frameworks/System.framework
   )
   if(NOT macsys)
-    message(FATAL_ERROR "Failed to find libSystem")
+    message(FATAL_ERROR "Failed to find System.tbd")
   endif()
   get_filename_component(syslib_dir ${macsys} DIRECTORY)
 
-  set(env LIBRARY_PATH=${prefix}/lib:${syslib_dir}:$ENV{LIBRARY_PATH})
+  set(env LIBRARY_PATH=${syslib_dir})
 elseif(UNIX)
   set(env LD_LIBRARY_PATH=${prefix}/lib:$ENV{LD_LIBRARY_PATH})
 endif()
+
+message(STATUS "Build with amended environment:
+${env}")
 
 execute_process(COMMAND ${CMAKE_COMMAND} -E env ${env}
   ${CMAKE_COMMAND} --build ${bindir}
