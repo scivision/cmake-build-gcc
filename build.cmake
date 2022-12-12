@@ -32,8 +32,8 @@ endif()
 
 if(APPLE)
   find_library(macsys
-  NAMES System
-  PATHS /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
+    NAMES System
+    PATHS /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
   )
   if(NOT macsys)
     message(FATAL_ERROR "Failed to find libSystem")
