@@ -20,6 +20,12 @@ endif()
 #   set(gcc_tag releases/gcc-12.2.0)
 # endif()
 
+set(gmp_version 6.2.1)
+set(isl_version 0.25)
+set(mpc_version 1.3.1)
+set(mpfr_version 4.1.1)
+set(zstd_tag v1.5.2)
+
 # --- URLs
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
@@ -35,25 +41,18 @@ else()
   # https://github.com/gcc-mirror/gcc.git
 endif()
 
-set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.zst)
-set(isl_url https://libisl.sourceforge.io/isl-0.25.tar.xz)
+set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-${gmp_version}.tar.zst)
+set(isl_url https://libisl.sourceforge.io/isl-${isl_version}.tar.xz)
 
-# MPC 1.3.0 has missing #include <stdio.h> in mpc.h, leading to GCC failure to find mpc.
-# this may have been fixed in https://gitlab.inria.fr/mpc/mpc/-/commit/e944aa454e60cbff8ab4e8c70dd974083398378f
-# mpc.h:287:35: error: unknown type name 'FILE'
-# __MPC_DECLSPEC void mpcr_out_str (FILE *f, mpcr_srcptr r);
-# mpc.h:287:35: note: 'FILE' is defined in header '<stdio.h>'; did you forget to '#include <stdio.h>'?
-set(mpc_version 1.2.1)
 set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-${mpc_version}.tar.gz)
 
-set(mpfr_version 4.1.1)
+
 if(AUTOCONF_VERSION VERSION_LESS 2.71)
   set(mpfr_version 4.1.0)
 endif()
 set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-${mpfr_version}.tar.xz)
 
 set(zstd_url https://github.com/facebook/zstd.git)
-set(zstd_tag v1.5.2)
 
 
 # --- auto-ignore build directory
