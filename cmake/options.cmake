@@ -23,7 +23,7 @@ endif()
 set(gmp_version 6.2.1)
 set(isl_version 0.25)
 set(mpc_version 1.3.1)
-set(mpfr_version 4.1.1)
+set(mpfr_version 4.2.0)
 set(zstd_tag v1.5.2)
 
 # --- URLs
