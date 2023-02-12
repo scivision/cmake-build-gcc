@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 if(NOT bindir)
-  set(bindir ${CMAKE_CURRENT_LIST_DIR}/build)
+  set(bindir /tmp/build_gcc)
 endif()
 get_filename_component(bindir ${bindir} ABSOLUTE)
 
