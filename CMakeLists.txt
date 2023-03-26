@@ -12,8 +12,8 @@ include(cmake/ExtProj.cmake)
 include(cmake/options.cmake)
 
 set(LDFLAGS $ENV{LDFLAGS})
-string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib")
-string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
+string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_FULL_LIBDIR}")
+string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_FULL_LIBDIR}")
 
 if(APPLE)
   execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
