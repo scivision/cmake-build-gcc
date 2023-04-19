@@ -21,13 +21,13 @@ endif()
 # endif()
 
 set(gmp_version 6.2.1)
-set(isl_version 0.25)
+set(isl_version 0.26)
 set(mpc_version 1.3.1)
 set(mpfr_version 4.2.0)
-set(zstd_tag v1.5.4)
+set(zstd_tag v1.5.5)
 
 # --- URLs
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
 find_package(Autotools REQUIRED)
 

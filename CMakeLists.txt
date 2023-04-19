@@ -9,7 +9,7 @@ project(BuildGCC LANGUAGES C CXX)
 include(GNUInstallDirs)
 include(cmake/ExtProj.cmake)
 
-include(cmake/options.cmake)
+include(options.cmake)
 
 set(LDFLAGS $ENV{LDFLAGS})
 string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_FULL_LIBDIR}")
