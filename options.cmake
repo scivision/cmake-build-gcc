@@ -13,11 +13,11 @@ else()
 endif()
 
 if(NOT version AND NOT gcc_url)
-  set(version 12.2.0)
+  set(version 13.1.0)
 endif()
 
 # if(NOT gcc_tag)
-#   set(gcc_tag releases/gcc-12.2.0)
+#   set(gcc_tag releases/gcc-13.1.0)
 # endif()
 
 set(gmp_version 6.2.1)
