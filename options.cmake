@@ -13,7 +13,7 @@ else()
 endif()
 
 if(NOT version AND NOT gcc_url)
-  set(version 13.1.0)
+  set(version 13.2.0)
 endif()
 
 # if(NOT gcc_tag)
