@@ -20,10 +20,10 @@ endif()
 #   set(gcc_tag releases/gcc-13.1.0)
 # endif()
 
-set(gmp_version 6.2.1)
+set(gmp_version 6.3.0)
 set(isl_version 0.26)
 set(mpc_version 1.3.1)
-set(mpfr_version 4.2.0)
+set(mpfr_version 4.2.1)
 set(zstd_tag v1.5.5)
 
 # --- URLs
@@ -58,9 +58,7 @@ set(zstd_url https://github.com/facebook/zstd.git)
 
 
 # --- auto-ignore build directory
-if(NOT EXISTS ${PROJECT_BINARY_DIR}/.gitignore)
-  file(WRITE ${PROJECT_BINARY_DIR}/.gitignore "*")
-endif()
+file(GENERATE OUTPUT .gitignore CONTENT "*")
 
 # users can specify like "cmake -B build -DCMAKE_INSTALL_PREFIX=~/mydir"
 message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
