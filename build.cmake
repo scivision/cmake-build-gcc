@@ -1,29 +1,33 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.21)
 
 if(NOT bindir)
-  set(bindir /tmp/build_gcc)
+  if(DEFINED ENV{TMPDIR})
+    set(bindir $ENV{TMPDIR}/build_gcc)
+  elseif(DEFINED ENV{TEMP})
+    set(bindir $ENV{TEMP}/build_gcc)
+  else()
+    set(bindir ${CMAKE_CURRENT_BINARY_DIR}/build_gcc)
+  endif()
 endif()
-get_filename_component(bindir ${bindir} ABSOLUTE)
+file(REAL_PATH ${bindir} bindir EXPAND_TILDE)
 
 if(NOT prefix)
   set(prefix ${bindir}/local)
 endif()
-get_filename_component(prefix ${prefix} ABSOLUTE)
+file(REAL_PATH ${prefix} prefix EXPAND_TILDE)
 
-set(conf_args -DCMAKE_INSTALL_PREFIX:PATH=${prefix})
+set(conf_args --install-prefix=${prefix})
 if(version)
   list(APPEND conf_args -Dversion=${version})
 endif()
 
 
 execute_process(COMMAND ${CMAKE_COMMAND}
--G "Unix Makefiles"
 -S${CMAKE_CURRENT_LIST_DIR}
 -B${bindir}
 ${conf_args}
 RESULT_VARIABLE ret
 )
-# Make shows live ExternalProject progress while Ninja is quiet
 if(NOT ret EQUAL 0)
   message(FATAL_ERROR "Failed to configure")
 endif()
@@ -39,14 +43,11 @@ if(APPLE)
   message(STATUS "SDK Hint: ${out}")
 
   set(CMAKE_FIND_FRAMEWORK "NEVER")
-  set(CMAKE_FIND_LIBRARY_PREFIXES "")
   find_library(macsys NAMES System
-  PATHS ${out}/System/Library/Frameworks/System.framework
+  PATHS ${out}/usr/lib
+  REQUIRED
   )
-  if(NOT macsys)
-    message(FATAL_ERROR "Failed to find System.tbd")
-  endif()
-  get_filename_component(syslib_dir ${macsys} DIRECTORY)
+  cmake_path(GET macsys PARENT_PATH syslib_dir)
 
   set(env LIBRARY_PATH=${syslib_dir})
 elseif(UNIX)
@@ -54,7 +55,7 @@ elseif(UNIX)
 endif()
 
 message(STATUS "Build with amended environment:
-${env}")
+ ${env}")
 
 execute_process(COMMAND ${CMAKE_COMMAND} -E env ${env}
   ${CMAKE_COMMAND} --build ${bindir}

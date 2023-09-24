@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13...3.26)
+cmake_minimum_required(VERSION 3.20...3.28)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   message(FATAL_ERROR "In-source builds are not allowed. Try 'cmake -B build'")
@@ -16,6 +16,11 @@ string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_FULL_LIBDIR}")
 string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_FULL_LIBDIR}")
 
 if(APPLE)
+  # AppleClang 15.0:
+  # ld: Assertion failed: (resultIndex < sectData.atoms.size()), function findAtom, file Relocations.cpp, line 1336.
+  # https://developer.apple.com/documentation/xcode-release-notes/xcode-15-release-notes#Linking
+  # maybe try old linker -ld64
+
   execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
   RESULT_VARIABLE ret
   OUTPUT_VARIABLE out
@@ -24,24 +29,21 @@ if(APPLE)
   message(STATUS "SDK Hint: ${out}")
 
   set(CMAKE_FIND_FRAMEWORK "NEVER")
-  set(CMAKE_FIND_LIBRARY_PREFIXES "")
 
   find_path(native_include NAMES stdio.h
   HINTS ${out}
+  REQUIRED
   )
-  if(native_include)
-    string(APPEND CMAKE_C_FLAGS " -I${native_include}")
-  endif()
+  string(APPEND CMAKE_C_FLAGS " -I${native_include}")
 
   find_library(macsys NAMES System
-  HINTS ${out}/System/Library/Frameworks/System.framework
+  HINTS ${out}/usr/lib
+  REQUIRED
   )
 
-  if(macsys)
-    get_filename_component(native_lib ${macsys} DIRECTORY)
-    string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${native_lib}")
-    string(APPEND LDFLAGS " -Wl,-rpath,${native_lib}")
-  endif()
+  cmake_path(GET macsys PARENT_PATH native_lib)
+  string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${native_lib}")
+  string(APPEND LDFLAGS " -Wl,-rpath,${native_lib}")
 endif()
 
 
