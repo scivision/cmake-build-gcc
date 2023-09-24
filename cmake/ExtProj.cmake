@@ -4,12 +4,12 @@ include(ExternalProject)
 
 function(extproj name url args dep)
 
-list(INSERT args 0 "--prefix=${CMAKE_INSTALL_PREFIX}")
+list(PREPEND args "--prefix=${CMAKE_INSTALL_PREFIX}")
 
 if(run_tests)
   set(test_cmd ${MAKE_EXECUTABLE} -j${NCPU} check)
 else()
-  set(test_cmd)
+  set(test_cmd "")
 endif()
 
 ExternalProject_Add(${name}
@@ -22,6 +22,13 @@ DEPENDS ${dep}
 TLS_VERIFY true
 CONFIGURE_HANDLED_BY_BUILD ON
 INACTIVITY_TIMEOUT 60
+USES_TERMINAL_DOWNLOAD true
+USES_TERMINAL_UPDATE true
+USES_TERMINAL_PATCH true
+USES_TERMINAL_CONFIGURE true
+USES_TERMINAL_BUILD true
+USES_TERMINAL_INSTALL true
+USES_TERMINAL_TEST true
 )
 # MAKEINFO=true disables docs using makeinfo to save time and avoid missing makeinfo error
 
