@@ -22,9 +22,8 @@ if(APPLE)
   # maybe try old linker -ld64
 
   execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
-  RESULT_VARIABLE ret
-  OUTPUT_VARIABLE out
-  OUTPUT_STRIP_TRAILING_WHITESPACE
+  OUTPUT_VARIABLE out OUTPUT_STRIP_TRAILING_WHITESPACE
+  COMMAND_ERROR_IS_FATAL ANY
   )
   message(STATUS "SDK Hint: ${out}")
 
@@ -70,3 +69,5 @@ set(MPC_ROOT ${CMAKE_INSTALL_PREFIX})
 include(cmake/zstd.cmake)
 
 include(cmake/gcc.cmake)
+
+file(GENERATE OUTPUT .gitignore CONTENT "*")

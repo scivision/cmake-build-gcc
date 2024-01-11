@@ -4,6 +4,7 @@ option(fortran "enable Fortran in GCC" true)
 option(gcov "enable Gcov coverage tool" true)
 option(lto "enable LTO" true)
 option(zstd "enable ZSTD compression" true)
+option(CMAKE_TLS_VERIFY "verify TLS certificates" true)
 
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   # FAIL: isl_test_cpp
@@ -20,10 +21,19 @@ endif()
 #   set(gcc_tag releases/gcc-13.1.0)
 # endif()
 
+# https://gmplib.org/
 set(gmp_version 6.3.0)
+
+# https://libisl.sourceforge.io/?C=M;O=D
 set(isl_version 0.26)
+
+# https://www.multiprecision.org/mpc/download.html
 set(mpc_version 1.3.1)
+
+# https://www.mpfr.org/mpfr-current/
 set(mpfr_version 4.2.1)
+
+# https://github.com/facebook/zstd/releases
 set(zstd_tag v1.5.5)
 
 # --- URLs
@@ -56,10 +66,6 @@ set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-${mpfr_version}.tar.xz)
 
 set(zstd_url https://github.com/facebook/zstd.git)
 
-
-# --- auto-ignore build directory
-file(GENERATE OUTPUT .gitignore CONTENT "*")
-
 # users can specify like "cmake -B build -DCMAKE_INSTALL_PREFIX=~/mydir"
 message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX})
@@ -70,7 +76,6 @@ if(NCPU LESS 1)
   set(NCPU)
 endif()
 
-set(CMAKE_TLS_VERIFY true)
 set(BUILD_SHARED_LIBS true)
 
 set_property(DIRECTORY PROPERTY EP_UPDATE_DISCONNECTED true)

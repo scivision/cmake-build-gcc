@@ -18,7 +18,6 @@ GIT_SHALLOW true
 SOURCE_SUBDIR build/cmake
 CMAKE_ARGS ${zstd_cmake_args}
 TEST_COMMAND ""
-TLS_VERIFY true
 ${extproj_args}
 USES_TERMINAL_DOWNLOAD true
 USES_TERMINAL_UPDATE true
