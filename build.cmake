@@ -1,13 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 if(NOT bindir)
-  if(DEFINED ENV{TMPDIR})
-    set(bindir $ENV{TMPDIR}/build_gcc)
-  elseif(DEFINED ENV{TEMP})
-    set(bindir $ENV{TEMP}/build_gcc)
-  else()
-    set(bindir ${CMAKE_CURRENT_BINARY_DIR}/build_gcc)
-  endif()
+  set(bindir ${CMAKE_CURRENT_BINARY_DIR}/build)
 endif()
 file(REAL_PATH ${bindir} bindir EXPAND_TILDE)
 
@@ -26,19 +20,15 @@ execute_process(COMMAND ${CMAKE_COMMAND}
 -S${CMAKE_CURRENT_LIST_DIR}
 -B${bindir}
 ${conf_args}
-RESULT_VARIABLE ret
+COMMAND_ERROR_IS_FATAL ANY
 )
-if(NOT ret EQUAL 0)
-  message(FATAL_ERROR "Failed to configure")
-endif()
 
 # --- build
 
 if(APPLE)
   execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
-  RESULT_VARIABLE ret
-  OUTPUT_VARIABLE out
-  OUTPUT_STRIP_TRAILING_WHITESPACE
+  OUTPUT_VARIABLE out OUTPUT_STRIP_TRAILING_WHITESPACE
+  COMMAND_ERROR_IS_FATAL ANY
   )
   message(STATUS "SDK Hint: ${out}")
 
@@ -59,8 +49,5 @@ message(STATUS "Build with amended environment:
 
 execute_process(COMMAND ${CMAKE_COMMAND} -E env ${env}
   ${CMAKE_COMMAND} --build ${bindir}
-RESULT_VARIABLE ret
+COMMAND_ERROR_IS_FATAL ANY
 )
-if(NOT ret EQUAL 0)
-  message(FATAL_ERROR "Failed to build / install")
-endif()
