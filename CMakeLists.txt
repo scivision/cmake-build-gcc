@@ -43,10 +43,15 @@ if(APPLE)
   cmake_path(GET macsys PARENT_PATH native_lib)
   string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${native_lib}")
   string(APPEND LDFLAGS " -Wl,-rpath,${native_lib}")
+  set(LIBRARY_PATH LIBRARY_PATH=${native_lib}:$ENV{LIBRARY_PATH})
+  message(STATUS "${LIBRARY_PATH}")
+elseif(UNIX)
+  set(LD_LIBRARY_PATH LD_LIBRARY_PATH=${CMAKE_INSTALL_PREFIX}/lib:$ENV{LD_LIBRARY_PATH})
+  message(STATUS "${LD_LIBRARY_PATH}")
 endif()
 
 
-message(STATUS "GCC: ${gcc_url} ${gcc_tag}")
+message(STATUS "GCC: ${gcc_url}")
 message(STATUS "CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
 message(STATUS "LDFLAGS: ${LDFLAGS}")
 
@@ -71,3 +76,15 @@ include(cmake/zstd.cmake)
 include(cmake/gcc.cmake)
 
 file(GENERATE OUTPUT .gitignore CONTENT "*")
+
+message(STATUS "Using ${NCPU} parallel jobs")
+
+include(FeatureSummary)
+
+add_feature_info(ZSTD zstd "Zstandard compression library")
+add_feature_info(ISL isl "Integer Set Library")
+add_feature_info(Cpp cpp "C++ compiler")
+add_feature_info(Fortran fortran "Fortran compiler")
+add_feature_info(GCOV gcov "GNU coverage tool")
+
+feature_summary(WHAT ALL)

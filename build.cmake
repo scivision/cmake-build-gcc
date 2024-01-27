@@ -23,31 +23,7 @@ ${conf_args}
 COMMAND_ERROR_IS_FATAL ANY
 )
 
-# --- build
 
-if(APPLE)
-  execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
-  OUTPUT_VARIABLE out OUTPUT_STRIP_TRAILING_WHITESPACE
-  COMMAND_ERROR_IS_FATAL ANY
-  )
-  message(STATUS "SDK Hint: ${out}")
-
-  set(CMAKE_FIND_FRAMEWORK "NEVER")
-  find_library(macsys NAMES System
-  PATHS ${out}/usr/lib
-  REQUIRED
-  )
-  cmake_path(GET macsys PARENT_PATH syslib_dir)
-
-  set(env LIBRARY_PATH=${syslib_dir})
-elseif(UNIX)
-  set(env LD_LIBRARY_PATH=${prefix}/lib:$ENV{LD_LIBRARY_PATH})
-endif()
-
-message(STATUS "Build with amended environment:
- ${env}")
-
-execute_process(COMMAND ${CMAKE_COMMAND} -E env ${env}
-  ${CMAKE_COMMAND} --build ${bindir}
+execute_process(COMMAND ${CMAKE_COMMAND} --build ${bindir}
 COMMAND_ERROR_IS_FATAL ANY
 )

@@ -12,13 +12,10 @@ set(zstd_cmake_args
 )
 
 ExternalProject_Add(ZSTD
-GIT_REPOSITORY ${zstd_url}
-GIT_TAG ${zstd_tag}
-GIT_SHALLOW true
+URL ${zstd_url}
 SOURCE_SUBDIR build/cmake
 CMAKE_ARGS ${zstd_cmake_args}
 TEST_COMMAND ""
-${extproj_args}
 USES_TERMINAL_DOWNLOAD true
 USES_TERMINAL_UPDATE true
 USES_TERMINAL_PATCH true

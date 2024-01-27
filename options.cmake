@@ -17,10 +17,6 @@ if(NOT version AND NOT gcc_url)
   set(version 13.2.0)
 endif()
 
-# if(NOT gcc_tag)
-#   set(gcc_tag releases/gcc-13.1.0)
-# endif()
-
 # https://gmplib.org/
 set(gmp_version 6.3.0)
 
@@ -34,7 +30,7 @@ set(mpc_version 1.3.1)
 set(mpfr_version 4.2.1)
 
 # https://github.com/facebook/zstd/releases
-set(zstd_tag v1.5.5)
+set(zstd_version 1.5.5)
 
 # --- URLs
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
@@ -44,12 +40,8 @@ find_package(Autotools REQUIRED)
 if(NOT gcc_url)
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   set(gcc_url https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-wip-apple-si.zip)
-  #set(gcc_url https://github.com/iains/gcc-darwin-arm64.git)
-  #set(gcc_tag master-wip-apple-si)
 else()
   set(gcc_url https://ftp.gnu.org/gnu/gcc/gcc-${version}/gcc-${version}.tar.xz)
-  # https://gcc.gnu.org/git/gcc.git
-  # https://github.com/gcc-mirror/gcc.git
 endif()
 endif()
 
@@ -64,11 +56,15 @@ if(AUTOCONF_VERSION VERSION_LESS 2.71)
 endif()
 set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-${mpfr_version}.tar.xz)
 
-set(zstd_url https://github.com/facebook/zstd.git)
+set(zstd_url https://github.com/facebook/zstd/archive/refs/tags/v${zstd_version}.tar.gz)
 
 # users can specify like "cmake -B build -DCMAKE_INSTALL_PREFIX=~/mydir"
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/local CACHE PATH "..." FORCE)
+endif()
+
 message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX})
+
 
 # --- limit CPU to avoid slowdown due to several hundred parallel threads
 cmake_host_system_information(RESULT NCPU QUERY NUMBER_OF_PHYSICAL_CORES)

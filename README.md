@@ -4,10 +4,9 @@ Build [GCC](https://gcc.gnu.org/install/)
 natively for C, C++, Fortran languages.
 Builds prerequisite libraries GMP, MPFR, and MPC from CMake.
 
-Platforms known to work include:
+Platforms working include:
 
-* Linux (Intel/AMD CPU)
-* MacOS (Apple Silicon CPU)
+* Linux (Intel / AMD CPU)
 
 Numerous platforms require specific patches that we don't currently implement.
 The easiest way may be to clone their GCC fork as we do for Apple Silicon.
@@ -24,13 +23,14 @@ is enabled to help ensure a working, performant GCC.
 
 * CentOS: `dnf install cmake make autoconf autoconf-archive libtool`
 * Ubuntu: `apt install cmake make autoconf autoconf-archive libtool`
+* macOS: `brew install cmake autoconf libtool`
 
 ## Options
 
-These options are by default enabled, but may be disabled by adding the CMake configure arguments:
+These options may be changed by adding the CMake configure arguments:
 
-Set GCC version
-: `-Dversion=12.2.0`
+Set GCC version (Linux only, as macOS uses a GCC fork)
+: `-Dversion=13.2.0`
 
 disable ISL for Graphite optimizations
 : `-Disl=off`
@@ -46,6 +46,9 @@ disable Gcov coverage tool
 
 disable link time optimization
 : `-Dlto=off`
+
+disable Zstd
+: `-Dzstd=off`
 
 disable Zstd compression (fallback to Zlib)
 : `-Dzstd=off`
@@ -64,7 +67,7 @@ cmake -Dprefix=$HOME/gcc-devel -P build.cmake
 
 This script sets environment variables during the build phase to avoid missing .so messages when building GCC.
 
-The MacOS Apple Silicon build uses the GCC gcc-darwin-arm64 fork.
+The macOS Apple Silicon build uses the GCC gcc-darwin-arm64 fork (currently broken).
 
 ## Usage
 

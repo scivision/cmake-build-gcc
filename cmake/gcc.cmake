@@ -32,25 +32,16 @@ if(NOT lto)
 endif()
 
 if(zstd)
-  list(APPEND gcc_args --with-zstd=${ZSTD_ROOT} --with-zstd-lib=${ZSTD_ROOT}/${CMAKE_INSTALL_LIBDIR})
+  list(APPEND gcc_args --with-zstd=${ZSTD_ROOT})
 endif()
 
-
-if(gcc_url MATCHES ".git$")
-  set(gcc_download
-  GIT_REPOSITORY ${gcc_url}
-  GIT_TAG ${gcc_tag}
-  GIT_SHALLOW true
-  GIT_PROGRESS true)
-else()
-  set(gcc_download URL ${gcc_url})
-endif()
+message(STATUS "GCC args: ${gcc_args}")
 
 ExternalProject_Add(GCC
-${gcc_download}
+URL ${gcc_url}
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${gcc_args} ${gcc_lang} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS}
-BUILD_COMMAND ${MAKE_EXECUTABLE} -j${NCPU}
-INSTALL_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} install
+BUILD_COMMAND ${CMAKE_COMMAND} -E env ${LIBRARY_PATH} ${LD_LIBRARY_PATH} ${MAKE_EXECUTABLE} -j${NCPU}
+INSTALL_COMMAND ${MAKE_EXECUTABLE} install
 TEST_COMMAND ""
 DEPENDS "GMP;ISL;MPC;MPFR;ZSTD"
 CONFIGURE_HANDLED_BY_BUILD ON
