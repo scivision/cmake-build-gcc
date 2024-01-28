@@ -23,7 +23,7 @@ is enabled to help ensure a working, performant GCC.
 
 * CentOS: `dnf install cmake make autoconf autoconf-archive libtool`
 * Ubuntu: `apt install cmake make autoconf autoconf-archive libtool`
-* macOS: `brew install cmake autoconf libtool`
+* macOS: `brew install cmake autoconf autoconf-archive libtool`
 
 ## Options
 
@@ -91,3 +91,13 @@ export PATH=$prefix/bin:$PATH
 
 export CC=$prefix/bin/gcc CXX=$prefix/bin/g++ FC=$prefix/bin/gfortran
 ```
+
+## Troubleshooting
+
+If experiencing MPFR failure:
+
+> error: possibly undefined macro: AX_PTHREAD If this token and others are legitimate, please use m4_pattern_allow.
+
+Install
+[autoconf-archive](https://www.gnu.org/software/autoconf-archive/)
+package with the system package manager.
