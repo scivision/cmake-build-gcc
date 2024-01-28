@@ -11,6 +11,11 @@ include(cmake/ExtProj.cmake)
 
 include(options.cmake)
 
+if(DEFINED ENV{CONDA_PREFIX})
+  message(FATAL_ERROR "Please deactivate conda environment to avoid errors
+  conda deactivate")
+endif()
+
 message(STATUS "Autotools: ${AUTOCONF_VERSION}")
 
 set(LDFLAGS $ENV{LDFLAGS})
