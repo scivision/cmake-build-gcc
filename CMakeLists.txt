@@ -11,6 +11,8 @@ include(cmake/ExtProj.cmake)
 
 include(options.cmake)
 
+message(STATUS "Autotools: ${AUTOCONF_VERSION}")
+
 set(LDFLAGS $ENV{LDFLAGS})
 string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_FULL_LIBDIR}")
 string(APPEND LDFLAGS " -Wl,-rpath,${CMAKE_INSTALL_FULL_LIBDIR}")
@@ -66,6 +68,7 @@ endif()
 if(NOT GMP_ROOT)
   extproj(GMP ${gmp_url} "" "")
   set(GMP_ROOT ${CMAKE_INSTALL_PREFIX})
+  message(STATUS "GMP: ${gmp_url}")
 endif()
 message(STATUS "GMP_ROOT: ${GMP_ROOT}")
 
@@ -80,6 +83,8 @@ endif()
 # --- MPFR
 extproj(MPFR ${mpfr_url} "--with-gmp=${GMP_ROOT}" "GMP")
 set(MPFR_ROOT ${CMAKE_INSTALL_PREFIX})
+message(STATUS "MPFR: ${mpfr_url}")
+message(STATUS "MPFR_ROOT: ${MPFR_ROOT}")
 
 # --- MPC
 extproj(MPC ${mpc_url} "--with-gmp=${GMP_ROOT};--with-mpfr=${MPFR_ROOT}" "GMP;MPFR")
