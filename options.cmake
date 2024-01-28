@@ -44,13 +44,16 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
 find_package(Autotools REQUIRED)
 
-if(NOT gcc_url)
-if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
+if(gcc_url)
+  if(EXISTS ${gcc_url} OR gcc_url MATCHES "^~")
+    file(REAL_PATH ${gcc_url} gcc_url EXPAND_TILDE)
+  endif()
+elseif(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   set(gcc_url https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-wip-apple-si.zip)
 else()
   set(gcc_url https://ftp.gnu.org/gnu/gcc/gcc-${version}/gcc-${version}.tar.xz)
 endif()
-endif()
+
 
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-${gmp_version}.tar.zst)
 set(isl_url https://libisl.sourceforge.io/isl-${isl_version}.tar.xz)
