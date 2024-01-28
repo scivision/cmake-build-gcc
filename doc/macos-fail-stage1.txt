@@ -1,0 +1,12 @@
+checking for ISO C99 support to TR1 in <stdint.h>... libtool: link: /Users/micha/code/cmake-build-gcc/build/GCC-prefix/src/GCC-build/./gcc/xgcc -B/Users/micha/code/cmake-build-gcc/build/GCC-prefix/src/GCC-build/./gcc/ -B/Users/micha/code/cmake-build-gcc/build/local/aarch64-apple-darwin23.3.0/bin/ -B/Users/micha/code/cmake-build-gcc/build/local/aarch64-apple-darwin23.3.0/lib/ -isystem /Users/micha/code/cmake-build-gcc/build/local/aarch64-apple-darwin23.3.0/include -isystem /Users/micha/code/cmake-build-gcc/build/local/aarch64-apple-darwin23.3.0/sys-include   -fno-checking -dynamiclib  -o .libs/libgomp.1.dylib  .libs/alloc.o .libs/atomic.o .libs/barrier.o .libs/critical.o .libs/env.o .libs/error.o .libs/icv.o .libs/icv-device.o .libs/iter.o .libs/iter_ull.o .libs/loop.o .libs/loop_ull.o .libs/ordered.o .libs/parallel.o .libs/scope.o .libs/sections.o .libs/single.o .libs/task.o .libs/team.o .libs/work.o .libs/lock.o .libs/mutex.o .libs/proc.o .libs/sem.o .libs/bar.o .libs/ptrlock.o .libs/time.o .libs/fortran.o .libs/affinity.o .libs/target.o .libs/splay-tree.o .libs/libgomp-plugin.o .libs/oacc-parallel.o .libs/oacc-host.o .libs/oacc-init.o .libs/oacc-mem.o .libs/oacc-async.o .libs/oacc-plugin.o .libs/oacc-cuda.o .libs/priority_queue.o .libs/affinity-fmt.o .libs/teams.o .libs/allocator.o .libs/oacc-profiling.o .libs/oacc-target.o .libs/target-indirect.o   -ldl  -pthread -nodefaultrpaths -Wl,-rpath -Wl,@loader_path   -install_name @rpath/libgomp.1.dylib -compatibility_version 2 -current_version 2.0
+ld: address=0x0 points to section(3) with no content in '/Users/micha/code/cmake-build-gcc/build/GCC-prefix/src/GCC-build/aarch64-apple-darwin23.3.0/libgomp/.libs/target-indirect.o'
+collect2: error: ld returned 1 exit status
+make[5]: *** [libgomp.la] Error 1
+make[4]: *** [all-recursive] Error 1
+make[3]: *** [all] Error 2
+make[2]: *** [all-stage1-target-libgomp] Error 2
+make[2]: *** Waiting for unfinished jobs....
+
+six.h > aarch64-apple-darwin23.3.0/bits/gthr-default.h
+make[1]: *** [stage1-bubble] Error 2
+make: *** [all] Error 2
