@@ -1,9 +1,13 @@
-option(isl "Use ISL Graphite optimization" true)
 option(cpp "enable C++ in GCC" true)
 option(fortran "enable Fortran in GCC" true)
-option(gcov "enable Gcov coverage tool" true)
-option(lto "enable LTO" true)
+
+option(isl "Use ISL Graphite optimization" true)
 option(zstd "enable ZSTD compression" true)
+
+option(gcov "enable Gcov coverage tool" false)
+
+option(lto "enable LTO" true)
+
 option(CMAKE_TLS_VERIFY "verify TLS certificates" true)
 
 option(find_gmp "find GMP" true)
@@ -55,6 +59,8 @@ set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-${mpc_version}.tar.gz)
 
 if(AUTOCONF_VERSION VERSION_LESS 2.71)
   set(mpfr_version 4.1.0)
+  message(STATUS "MPFR ${mpfr_version} due to autoconf < 2.71")
+else()
 endif()
 set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-${mpfr_version}.tar.xz)
 

@@ -110,4 +110,4 @@ add_feature_info(Cpp cpp "C++ compiler")
 add_feature_info(Fortran fortran "Fortran compiler")
 add_feature_info(GCOV gcov "GNU coverage tool")
 
-feature_summary(WHAT ALL)
+feature_summary(WHAT ENABLED_FEATURES DISABLED_FEATURES)
