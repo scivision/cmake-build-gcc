@@ -56,8 +56,18 @@ message(STATUS "CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
 message(STATUS "LDFLAGS: ${LDFLAGS}")
 
 # --- GMP
-extproj(GMP ${gmp_url} "" "")
-set(GMP_ROOT ${CMAKE_INSTALL_PREFIX})
+if(find_gmp)
+  find_path(GMP_INCLUDE_DIR NAMES gmp.h)
+  if(GMP_INCLUDE_DIR)
+    cmake_path(GET GMP_INCLUDE_DIR PARENT_PATH GMP_ROOT)
+    add_custom_target(GMP)
+  endif()
+endif()
+if(NOT GMP_ROOT)
+  extproj(GMP ${gmp_url} "" "")
+  set(GMP_ROOT ${CMAKE_INSTALL_PREFIX})
+endif()
+message(STATUS "GMP_ROOT: ${GMP_ROOT}")
 
 # --- ISL
 extproj(ISL ${isl_url} "--with-gmp-prefix=${GMP_ROOT}" "GMP")

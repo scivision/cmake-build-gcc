@@ -6,6 +6,8 @@ option(lto "enable LTO" true)
 option(zstd "enable ZSTD compression" true)
 option(CMAKE_TLS_VERIFY "verify TLS certificates" true)
 
+option(find_gmp "find GMP" true)
+
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   # FAIL: isl_test_cpp
   option(run_tests "run tests for numerical prereqs (GMP, ISL, MPC, MPFR)")
