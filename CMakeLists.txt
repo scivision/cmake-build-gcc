@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20...3.28)
+cmake_minimum_required(VERSION 3.20...3.29)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   message(FATAL_ERROR "In-source builds are not allowed. Try 'cmake -B build'")
@@ -86,9 +86,18 @@ else()
 endif()
 
 # --- MPFR
-extproj(MPFR ${mpfr_url} "--with-gmp=${GMP_ROOT}" "GMP")
-set(MPFR_ROOT ${CMAKE_INSTALL_PREFIX})
-message(STATUS "MPFR: ${mpfr_url}")
+if(find_mpfr)
+  find_path(MPFR_INCLUDE_DIR NAMES mpfr.h)
+  if(MPFR_INCLUDE_DIR)
+    cmake_path(GET MPFR_INCLUDE_DIR PARENT_PATH MPFR_ROOT)
+    add_custom_target(MPFR)
+  endif()
+endif()
+if(NOT MPFR_ROOT)
+  extproj(MPFR ${mpfr_url} "--with-gmp=${GMP_ROOT}" "GMP")
+  set(MPFR_ROOT ${CMAKE_INSTALL_PREFIX})
+  message(STATUS "MPFR: ${mpfr_url}")
+endif()
 message(STATUS "MPFR_ROOT: ${MPFR_ROOT}")
 
 # --- MPC
