@@ -123,5 +123,6 @@ add_feature_info(ISL isl "Integer Set Library")
 add_feature_info(Cpp cpp "C++ compiler")
 add_feature_info(Fortran fortran "Fortran compiler")
 add_feature_info(GCOV gcov "GNU coverage tool")
+add_feature_info(LTO lto "Link Time Optimization")
 
 feature_summary(WHAT ENABLED_FEATURES DISABLED_FEATURES)
