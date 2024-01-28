@@ -70,8 +70,12 @@ endif()
 message(STATUS "GMP_ROOT: ${GMP_ROOT}")
 
 # --- ISL
-extproj(ISL ${isl_url} "--with-gmp-prefix=${GMP_ROOT}" "GMP")
-set(ISL_ROOT ${CMAKE_INSTALL_PREFIX})
+if(isl)
+  extproj(ISL ${isl_url} "--with-gmp-prefix=${GMP_ROOT}" "GMP")
+  set(ISL_ROOT ${CMAKE_INSTALL_PREFIX})
+else()
+  add_custom_target(ISL)
+endif()
 
 # --- MPFR
 extproj(MPFR ${mpfr_url} "--with-gmp=${GMP_ROOT}" "GMP")
@@ -81,7 +85,11 @@ set(MPFR_ROOT ${CMAKE_INSTALL_PREFIX})
 extproj(MPC ${mpc_url} "--with-gmp=${GMP_ROOT};--with-mpfr=${MPFR_ROOT}" "GMP;MPFR")
 set(MPC_ROOT ${CMAKE_INSTALL_PREFIX})
 
-include(cmake/zstd.cmake)
+if(zstd)
+  include(cmake/zstd.cmake)
+else()
+  add_custom_target(ZSTD)
+endif()
 
 include(cmake/gcc.cmake)
 

@@ -1,8 +1,3 @@
-if(NOT zstd)
-  add_custom_target(ZSTD)
-  return()
-endif()
-
 set(zstd_cmake_args
 -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
 -DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}
