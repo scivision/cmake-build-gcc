@@ -45,7 +45,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 find_package(Autotools REQUIRED)
 
 if(gcc_url)
-  if(EXISTS ${gcc_url} OR gcc_url MATCHES "^~")
+  if(NOT gcc_url MATCHES "^https://")
     file(REAL_PATH ${gcc_url} gcc_url EXPAND_TILDE)
   endif()
 elseif(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
