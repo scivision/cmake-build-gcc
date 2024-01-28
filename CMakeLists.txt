@@ -50,7 +50,16 @@ if(APPLE)
   cmake_path(GET macsys PARENT_PATH native_lib)
   string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${native_lib}")
   string(APPEND LDFLAGS " -Wl,-rpath,${native_lib}")
-  set(LIBRARY_PATH LIBRARY_PATH=${native_lib}:$ENV{LIBRARY_PATH})
+  set(LIBRARY_PATH LIBRARY_PATH=${native_lib})
+  if(DEFINED ENV{LIBRARY_PATH})
+    # necessary to avoid GCC error
+    # checking LIBRARY_PATH variable... contains current directory
+    # configure: error:
+    # *** LIBRARY_PATH shouldn't contain the current directory when
+    # *** building gcc. Please change the environment variable
+    # *** and run configure again.
+    string(APPEND LIBRARY_PATH ":$ENV{LIBRARY_PATH}")
+  endif()
   message(STATUS "${LIBRARY_PATH}")
 elseif(UNIX)
   set(LD_LIBRARY_PATH LD_LIBRARY_PATH=${CMAKE_INSTALL_PREFIX}/lib:$ENV{LD_LIBRARY_PATH})
