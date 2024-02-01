@@ -1,3 +1,5 @@
+# option reference: https://github.com/Homebrew/homebrew-core/blob/master/Formula/g/gcc.rb
+
 set(gcc_args
 --prefix=${CMAKE_INSTALL_PREFIX}
 --with-gmp=${GMP_ROOT}
