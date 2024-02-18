@@ -7,7 +7,7 @@ function(extproj name url args dep)
 list(PREPEND args "--prefix=${CMAKE_INSTALL_PREFIX}")
 
 if(run_tests)
-  set(test_cmd ${MAKE_EXECUTABLE} -j${NCPU} check)
+  set(test_cmd ${MAKE_EXECUTABLE} -j${Ncpu} check)
 else()
   set(test_cmd "")
 endif()
@@ -15,7 +15,7 @@ endif()
 ExternalProject_Add(${name}
 URL ${url}
 CONFIGURE_COMMAND <SOURCE_DIR>/configure ${args} CFLAGS=${CMAKE_C_FLAGS} LDFLAGS=${LDFLAGS} MAKEINFO=true
-BUILD_COMMAND ${MAKE_EXECUTABLE} -j${NCPU} MAKEINFO=true
+BUILD_COMMAND ${MAKE_EXECUTABLE} -j${Ncpu} MAKEINFO=true
 INSTALL_COMMAND ${MAKE_EXECUTABLE} install
 TEST_COMMAND ${test_cmd}
 DEPENDS ${dep}

@@ -79,9 +79,10 @@ message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
 
 
 # --- limit CPU to avoid slowdown due to several hundred parallel threads
-cmake_host_system_information(RESULT NCPU QUERY NUMBER_OF_PHYSICAL_CORES)
-if(NCPU LESS 1)
-  set(NCPU)
+if(DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
+  set(Ncpu $ENV{CMAKE_BUILD_PARALLEL_LEVEL})
+else()
+  cmake_host_system_information(RESULT Ncpu QUERY NUMBER_OF_PHYSICAL_CORES)
 endif()
 
 set(BUILD_SHARED_LIBS true)

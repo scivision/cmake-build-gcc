@@ -123,7 +123,7 @@ include(cmake/gcc.cmake)
 
 file(GENERATE OUTPUT .gitignore CONTENT "*")
 
-message(STATUS "Using ${NCPU} parallel jobs")
+message(STATUS "Using ${Ncpu} parallel jobs")
 
 include(FeatureSummary)
 
