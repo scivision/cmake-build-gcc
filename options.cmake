@@ -37,7 +37,7 @@ set(mpc_version 1.3.1)
 set(mpfr_version 4.2.1)
 
 # https://github.com/facebook/zstd/releases
-set(zstd_version 1.5.5)
+set(zstd_version 1.5.6)
 
 # --- URLs
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
