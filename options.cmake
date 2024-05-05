@@ -70,13 +70,15 @@ set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-${mpfr_version}.tar.xz)
 
 set(zstd_url https://github.com/facebook/zstd/archive/refs/tags/v${zstd_version}.tar.gz)
 
-# users can specify like "cmake -B build -DCMAKE_INSTALL_PREFIX=~/mydir"
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/local CACHE PATH "..." FORCE)
+message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX})
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.29)
+  if(NOT IS_WRITABLE ${CMAKE_INSTALL_PREFIX})
+    message(FATAL_ERROR "CMAKE_INSTALL_PREFIX is not writable: ${CMAKE_INSTALL_PREFIX}")
+  endif()
+else()
+  file(TOUCH ${CMAKE_INSTALL_PREFIX}/.cmake_writable "")
 endif()
-
-message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
-
 
 # --- limit CPU to avoid slowdown due to several hundred parallel threads
 if(DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
