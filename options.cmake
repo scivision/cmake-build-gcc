@@ -2,7 +2,9 @@ option(cpp "enable C++ in GCC" true)
 option(fortran "enable Fortran in GCC" true)
 
 option(isl "Use ISL Graphite optimization" true)
-option(zstd "enable ZSTD compression" true)
+
+option(zstd "enable ZSTD compression")
+# can cause build failure on macOS late in GCC build
 
 option(gcov "enable Gcov coverage tool" false)
 
