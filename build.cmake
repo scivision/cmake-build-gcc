@@ -14,7 +14,9 @@ set(conf_args --install-prefix=${prefix})
 if(version)
   list(APPEND conf_args -Dversion=${version})
 endif()
-
+if(url)
+  list(APPEND conf_args -Dgcc_url=${url})
+endif()
 
 execute_process(COMMAND ${CMAKE_COMMAND}
 -S${CMAKE_CURRENT_LIST_DIR}
