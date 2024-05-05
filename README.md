@@ -67,7 +67,18 @@ cmake -Dprefix=$HOME/gcc-devel -P build.cmake
 
 This script sets environment variables during the build phase to avoid missing .so messages when building GCC.
 
-The macOS Apple Silicon build uses the GCC gcc-darwin-arm64 fork (currently broken).
+Specify a URL like:
+
+```sh
+ cmake -Durl=https://gcc.gnu.org/pub/gcc/snapshots/14.1.0-RC-20240503/gcc-14.1.0-RC-20240503.tar.xz -P build.cmake
+ ```
+
+macOS Apple Silicon may need the
+[GCC gcc-darwin-arm64 fork](https://github.com/iains/gcc-darwin-arm64/):
+
+```sh
+cmake -Durl=https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-wip-apple-si.zip -P build.cmake
+```
 
 ## Usage
 
