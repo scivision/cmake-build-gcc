@@ -23,7 +23,7 @@ else()
 endif()
 
 if(NOT version AND NOT gcc_url)
-  set(version 13.2.0)
+  set(version 14.1.0)
 endif()
 
 # https://gmplib.org/
