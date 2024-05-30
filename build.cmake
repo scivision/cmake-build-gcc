@@ -1,12 +1,16 @@
 cmake_minimum_required(VERSION 3.21)
 
 if(NOT bindir)
-  set(bindir ${CMAKE_CURRENT_BINARY_DIR}/build)
+  if(DEFINED ENV{TMPDIR})
+    set(bindir $ENV{TMPDIR}/build_gcc)
+  else()
+    set(bindir /tmp/build_gcc)
+  endif()
 endif()
 file(REAL_PATH ${bindir} bindir EXPAND_TILDE)
 
 if(NOT prefix)
-  set(prefix ${bindir}/local)
+  message(FATAL_ERROR "please specify 'cmake -Dprefix=/path/to/install'")
 endif()
 file(REAL_PATH ${prefix} prefix EXPAND_TILDE)
 
@@ -24,7 +28,6 @@ execute_process(COMMAND ${CMAKE_COMMAND}
 ${conf_args}
 COMMAND_ERROR_IS_FATAL ANY
 )
-
 
 execute_process(COMMAND ${CMAKE_COMMAND} --build ${bindir}
 COMMAND_ERROR_IS_FATAL ANY
