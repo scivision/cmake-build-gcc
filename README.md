@@ -67,10 +67,10 @@ cmake -Dprefix=$HOME/gcc-devel -P build.cmake
 
 This script sets environment variables during the build phase to avoid missing .so messages when building GCC.
 
-Specify a URL like:
+Specify a URL say from [GCC snapshots](https://gcc.gnu.org/pub/gcc/snapshots/?C=M;O=D) like:
 
 ```sh
- cmake -Durl=https://gcc.gnu.org/pub/gcc/snapshots/14.1.0-RC-20240503/gcc-14.1.0-RC-20240503.tar.xz -P build.cmake
+ cmake -Durl=https://gcc.gnu.org/pub/gcc/snapshots/LATEST-15/gcc-15-20240526.tar.xz -P build.cmake
  ```
 
 macOS Apple Silicon may need the
