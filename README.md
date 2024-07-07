@@ -82,25 +82,7 @@ cmake -Durl=https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-
 
 ## Usage
 
-Make a script like below and source it to use this GCC:
+Source a script like [gcc-dev.sh](./gcc-dev.sh) to use this GCC.
 
-```sh
-#!/usr/bin/env bash
-
-prefix=$HOME/gcc-devel
-
-case "$OSTYPE" in
-  darwin*)
-    export LIBRARY_PATH=$prefix/lib:$LIBRARY_PATH
-  ;;
-  linux*)
-    export LD_LIBRARY_PATH=$prefix/lib64:$prefix/lib:$LD_LIBRARY_PATH
-  ;;
-esac
-
-export PATH=$prefix/bin:$PATH
-
-export CC=$prefix/bin/gcc CXX=$prefix/bin/g++ FC=$prefix/bin/gfortran
-```
 
 [Troubleshooting](./troubleshooting.md)
