@@ -23,6 +23,7 @@ else()
 endif()
 
 if(NOT version AND NOT gcc_url)
+# https://ftp.gnu.org/gnu/gcc/?C=M;O=D
   set(version 14.1.0)
 endif()
 
