@@ -10,8 +10,6 @@ option(gcov "enable Gcov coverage tool" false)
 
 option(lto "enable LTO" false)
 
-option(CMAKE_TLS_VERIFY "verify TLS certificates" true)
-
 option(find_gmp "find GMP" true)
 option(find_mpfr "find MPFR" true)
 
