@@ -20,25 +20,27 @@ else()
   option(run_tests "run tests for numerical prereqs (GMP, ISL, MPC, MPFR)" true)
 endif()
 
+file(READ ${CMAKE_CURRENT_LIST_DIR}/libraries.json json)
+
 if(NOT version AND NOT gcc_url)
 # https://ftp.gnu.org/gnu/gcc/?C=M;O=D
-  set(version 14.2.0)
+  string(JSON gcc_version GET ${json} "gcc")
 endif()
 
 # https://gmplib.org/
-set(gmp_version 6.3.0)
+string(JSON gmp_version GET ${json} "gmp")
 
 # https://libisl.sourceforge.io/?C=M;O=D
-set(isl_version 0.26)
+string(JSON isl_version GET ${json} "isl")
 
 # https://www.multiprecision.org/mpc/download.html
-set(mpc_version 1.3.1)
+string(JSON mpc_version GET ${json} "mpc")
 
 # https://www.mpfr.org/mpfr-current/
-set(mpfr_version 4.2.1)
+string(JSON mpfr_version GET ${json} "mpfr")
 
 # https://github.com/facebook/zstd/releases
-set(zstd_version 1.5.6)
+string(JSON zstd_version GET ${json} "zstd")
 
 # --- URLs
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
