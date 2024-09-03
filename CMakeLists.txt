@@ -88,11 +88,20 @@ message(STATUS "GMP_ROOT: ${GMP_ROOT}")
 
 # --- ISL
 if(isl)
-  extproj(ISL ${isl_url} "--with-gmp-prefix=${GMP_ROOT}" "GMP")
-  set(ISL_ROOT ${CMAKE_INSTALL_PREFIX})
+  if(find_isl)
+    find_path(ISL_INCLUDE_DIR NAMES isl/ctx.h)
+    if(ISL_INCLUDE_DIR)
+      cmake_path(GET ISL_INCLUDE_DIR PARENT_PATH ISL_ROOT)
+      add_custom_target(ISL)
+    endif()
+  else()
+    extproj(ISL ${isl_url} "--with-gmp-prefix=${GMP_ROOT}" "GMP")
+    set(ISL_ROOT ${CMAKE_INSTALL_PREFIX})
+  endif()
 else()
   add_custom_target(ISL)
 endif()
+message(STATUS "ISL_ROOT: ${ISL_ROOT}")
 
 # --- MPFR
 if(find_mpfr)

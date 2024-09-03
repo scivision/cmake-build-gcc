@@ -30,7 +30,7 @@ is enabled to help ensure a working, performant GCC.
 These options may be changed by adding the CMake configure arguments:
 
 Set GCC version (Linux only, as macOS uses a GCC fork)
-: `-Dversion=13.2.0`
+: `-Dgcc_version=14.2.0`
 
 disable ISL for Graphite optimizations
 : `-Disl=off`

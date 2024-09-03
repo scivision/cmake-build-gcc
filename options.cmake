@@ -1,8 +1,6 @@
 option(cpp "enable C++ in GCC" true)
 option(fortran "enable Fortran in GCC" true)
 
-option(isl "Use ISL Graphite optimization" true)
-
 option(zstd "enable ZSTD compression")
 # can cause build failure on macOS late in GCC build
 
@@ -12,6 +10,9 @@ option(lto "enable LTO" false)
 
 option(find_gmp "find GMP" true)
 option(find_mpfr "find MPFR" true)
+
+option(isl "Use ISL Graphite optimization" true)
+option(find_isl "find ISL" true)
 
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   # FAIL: isl_test_cpp
@@ -48,7 +49,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 find_package(Autotools REQUIRED)
 
 if(NOT DEFINED gcc_url)
-  set(gcc_url https://ftp.gnu.org/gnu/gcc/gcc-${version}/gcc-${version}.tar.xz)
+  set(gcc_url https://ftp.gnu.org/gnu/gcc/gcc-${gcc_version}/gcc-${gcc_version}.tar.xz)
 endif()
 
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-${gmp_version}.tar.zst)
