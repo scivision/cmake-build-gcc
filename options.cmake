@@ -60,7 +60,7 @@ set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-${mpc_version}.tar.gz)
 
 if(AUTOCONF_VERSION VERSION_LESS 2.71)
   set(mpfr_version 4.1.0)
-  message(STATUS "MPFR ${mpfr_version} due to autoconf < 2.71")
+  message(STATUS "Override MPFR ${mpfr_version} due to autoconf < 2.71")
 else()
 endif()
 set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-${mpfr_version}.tar.xz)
