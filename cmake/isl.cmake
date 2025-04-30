@@ -6,6 +6,7 @@ if(isl)
       add_custom_target(ISL)
     endif()
   endif()
+
   if(NOT ISL_ROOT)
     extproj(ISL ${isl_url} "--with-gmp-prefix=${GMP_ROOT}" "GMP")
     set(ISL_ROOT ${CMAKE_INSTALL_PREFIX})

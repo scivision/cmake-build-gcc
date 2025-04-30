@@ -9,6 +9,7 @@ option(gcov "enable Gcov coverage tool" false)
 option(lto "enable LTO" false)
 
 option(find_gmp "find GMP" true)
+option(find_mpc "find MPC" true)
 option(find_mpfr "find MPFR" true)
 
 option(isl "Use ISL Graphite optimization" true)
@@ -44,9 +45,6 @@ string(JSON mpfr_version GET ${json} "mpfr")
 string(JSON zstd_version GET ${json} "zstd")
 
 # --- URLs
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
-
-find_package(Autotools REQUIRED)
 
 if(NOT DEFINED gcc_url)
   set(gcc_url https://ftp.gnu.org/gnu/gcc/gcc-${gcc_version}/gcc-${gcc_version}.tar.xz)

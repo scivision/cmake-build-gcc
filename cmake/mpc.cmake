@@ -1,0 +1,13 @@
+if(find_mpc)
+  find_path(MPC_INCLUDE_DIR NAMES mpc.h)
+  if(MPC_INCLUDE_DIR)
+    cmake_path(GET MPC_INCLUDE_DIR PARENT_PATH MPC_ROOT)
+    add_custom_target(MPC)
+  endif()
+endif()
+
+if(NOT MPC_ROOT)
+  extproj(MPC ${mpc_url} "--with-gmp=${GMP_ROOT};--with-mpfr=${MPFR_ROOT}" "GMP;MPFR")
+  set(MPC_ROOT ${CMAKE_INSTALL_PREFIX})
+  message(STATUS "MPC: ${mpc_url}")
+endif()

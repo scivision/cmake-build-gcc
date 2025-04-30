@@ -9,14 +9,22 @@ project(BuildGCC LANGUAGES C CXX)
 include(GNUInstallDirs)
 include(cmake/ExtProj.cmake)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
+
+# must be before options.cmake
+find_package(Autotools REQUIRED)
+message(STATUS "Autotools: ${AUTOCONF_VERSION}")
+
 include(options.cmake)
 
 if(DEFINED ENV{CONDA_PREFIX})
-  message(FATAL_ERROR "Please deactivate conda environment to avoid errors
+  message(FATAL_ERROR "Please deactivate conda environment to avoid errors:
   conda deactivate")
 endif()
 
-message(STATUS "Autotools: ${AUTOCONF_VERSION}")
+find_program(awk NAMES awk REQUIRED)
+message(STATUS "awk: ${awk}")
+
 
 set(LDFLAGS $ENV{LDFLAGS})
 string(APPEND LDFLAGS " ${CMAKE_LIBRARY_PATH_FLAG}${CMAKE_INSTALL_FULL_LIBDIR}")
@@ -31,6 +39,7 @@ if(APPLE)
   execute_process(COMMAND xcrun --sdk macosx --show-sdk-path
   OUTPUT_VARIABLE out OUTPUT_STRIP_TRAILING_WHITESPACE
   COMMAND_ERROR_IS_FATAL ANY
+  TIMEOUT 10
   )
   message(STATUS "SDK Hint: ${out}")
 
@@ -71,7 +80,6 @@ message(STATUS "GCC: ${gcc_url}")
 message(STATUS "CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
 message(STATUS "LDFLAGS: ${LDFLAGS}")
 
-# --- GMP
 include(cmake/gmp.cmake)
 message(STATUS "GMP_ROOT: ${GMP_ROOT}")
 
@@ -81,9 +89,8 @@ message(STATUS "ISL_ROOT: ${ISL_ROOT}")
 include(cmake/mpfr.cmake)
 message(STATUS "MPFR_ROOT: ${MPFR_ROOT}")
 
-# --- MPC
-extproj(MPC ${mpc_url} "--with-gmp=${GMP_ROOT};--with-mpfr=${MPFR_ROOT}" "GMP;MPFR")
-set(MPC_ROOT ${CMAKE_INSTALL_PREFIX})
+include(cmake/mpc.cmake)
+message(STATUS "MPC_ROOT: ${MPC_ROOT}")
 
 if(zstd)
   include(cmake/zstd.cmake)
