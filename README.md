@@ -21,11 +21,17 @@ is enabled to help ensure a working, performant GCC.
 
 ## Prerequsites
 
+Build prerequisites are:
+
 * CentOS: `dnf install cmake make autoconf autoconf-archive libtool`
 * Ubuntu: `apt install cmake make autoconf autoconf-archive libtool`
 * macOS: `brew install cmake autoconf autoconf-archive libtool`
 
 Automake is not required unless modifying GCC source code.
+
+If one wishes to install GCC prerequisites via a package manager, optionally do like:
+
+* macOS `brew install gmp mpfr libmpc isl`
 
 ## Options
 
