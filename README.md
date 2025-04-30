@@ -78,14 +78,14 @@ This script sets environment variables during the build phase to avoid missing .
 Specify a URL say from [GCC snapshots](https://gcc.gnu.org/pub/gcc/snapshots/?C=M;O=D) like:
 
 ```sh
- cmake -Durl=https://gcc.gnu.org/pub/gcc/snapshots/LATEST-15/gcc-15-20240526.tar.xz -P build.cmake
+ cmake -Dgcc_url=https://gcc.gnu.org/pub/gcc/snapshots/LATEST-15/gcc-15-20240526.tar.xz -P build.cmake
  ```
 
 macOS Apple Silicon may need the
 [GCC gcc-darwin-arm64 fork](https://github.com/iains/gcc-darwin-arm64/):
 
 ```sh
-cmake -Durl=https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-wip-apple-si.zip -P build.cmake
+cmake -Dgcc_url=https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-wip-apple-si.zip -P build.cmake
 ```
 
 ## Usage
