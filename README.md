@@ -25,6 +25,8 @@ is enabled to help ensure a working, performant GCC.
 * Ubuntu: `apt install cmake make autoconf autoconf-archive libtool`
 * macOS: `brew install cmake autoconf autoconf-archive libtool`
 
+Automake is not required unless modifying GCC source code.
+
 ## Options
 
 These options may be changed by adding the CMake configure arguments:
