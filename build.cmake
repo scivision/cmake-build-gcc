@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21...3.30)
+cmake_minimum_required(VERSION 3.20)
 
 if(NOT bindir)
   if(DEFINED ENV{TMPDIR})
@@ -7,12 +7,12 @@ if(NOT bindir)
     set(bindir /tmp/build_gcc)
   endif()
 endif()
-file(REAL_PATH ${bindir} bindir EXPAND_TILDE)
+get_filename_component(bindir ${bindir} ABSOLUTE)
 
 if(NOT prefix)
   message(FATAL_ERROR "please specify 'cmake -Dprefix=/path/to/install'")
 endif()
-file(REAL_PATH ${prefix} prefix EXPAND_TILDE)
+get_filename_component(prefix ${prefix} ABSOLUTE)
 
 set(conf_args --install-prefix=${prefix})
 if(version)
