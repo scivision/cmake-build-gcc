@@ -7,12 +7,17 @@ set(gcc_args
 --with-mpfr=${MPFR_ROOT}
 --disable-multilib
 --disable-nls
+--with-system-zlib
 )
+# --with-system-zlib helps macOS avoid obsolete GCC-vendored zlib syntax errors with AppleClang
+# --with-target-system-zlib is for D language only
 
+# for macOS, helps autotools find the native system headers
 if(native_include)
   list(APPEND gcc_args --with-native-system-header-dir=${native_include})
 endif()
 
+# what languages will be built for GCC
 set(gcc_lang --enable-languages=c)
 if(cpp)
   string(APPEND gcc_lang ",c++")

@@ -1,12 +1,15 @@
 # CMake build GCC
 
-Build [GCC](https://gcc.gnu.org/install/)
+[Configure](https://gcc.gnu.org/install/configure.html)
+and build
+[GCC](https://gcc.gnu.org/install/)
 natively for C, C++, Fortran languages.
-Builds prerequisite libraries GMP, MPFR, and MPC from CMake.
+Find or build GCC prerequisite libraries GMP, MPFR, and MPC from CMake.
 
 Platforms working include:
 
 * Linux (Intel / AMD CPU)
+* macOS: Currently requires GCC fork for Apple Silicon `cmake -Dgcc_url=https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-wip-apple-si.zip`
 
 Numerous platforms require specific patches that we don't currently implement.
 The easiest way may be to clone their GCC fork as we do for Apple Silicon.
@@ -37,7 +40,7 @@ If one wishes to install GCC prerequisites via a package manager, optionally do 
 
 These options may be changed by adding the CMake configure arguments:
 
-Set GCC version (Linux only, as macOS uses a GCC fork)
+Set GCC version
 : `-Dgcc_version=14.2.0`
 
 disable ISL for Graphite optimizations
@@ -61,6 +64,11 @@ disable Zstd
 disable Zstd compression (fallback to Zlib)
 : `-Dzstd=off`
 
+We set GCC options like:
+
+* `--disable-nls` to avoid gettext dependencies, make GCC output English only
+* `--disable-multilib` to avoid building 32-bit libraries on 64-bit systems
+
 ## Build
 
 This CMake project assumes the system already has Autotools, Make, and a new-enough C/C++ compiler.
@@ -81,12 +89,17 @@ Specify a URL say from [GCC snapshots](https://gcc.gnu.org/pub/gcc/snapshots/?C=
  cmake -Dgcc_url=https://gcc.gnu.org/pub/gcc/snapshots/LATEST-15/gcc-15-20240526.tar.xz -P build.cmake
  ```
 
+### Apple Silicon
+
 macOS Apple Silicon may need the
 [GCC gcc-darwin-arm64 fork](https://github.com/iains/gcc-darwin-arm64/):
 
 ```sh
 cmake -Dgcc_url=https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-wip-apple-si.zip -P build.cmake
 ```
+
+`--with-system-zlib` for macOS avoids incompatible Zlib GCC-vendored headers.
+Linux is OK with or without this flag.
 
 ## Usage
 
