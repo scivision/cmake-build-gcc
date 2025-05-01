@@ -6,7 +6,8 @@ and build
 natively for C, C++, Fortran languages.
 Find or build GCC prerequisite libraries GMP, MPFR, and MPC from CMake.
 
-Platforms working include:
+[Platforms](https://gcc.gnu.org/gcc-16/criteria.html)
+working include:
 
 * Linux (Intel / AMD CPU)
 * macOS: Currently requires GCC fork for Apple Silicon `cmake -Dgcc_url=https://github.com/iains/gcc-darwin-arm64/archive/refs/heads/master-wip-apple-si.zip`
