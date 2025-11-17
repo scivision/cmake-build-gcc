@@ -42,7 +42,7 @@ If one wishes to install GCC prerequisites via a package manager, optionally do 
 These options may be changed by adding the CMake configure arguments:
 
 Set GCC version
-: `-Dgcc_version=14.2.0`
+: `-Dgcc_version=15.2.0`
 
 disable ISL for Graphite optimizations
 : `-Disl=off`
