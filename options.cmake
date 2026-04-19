@@ -69,7 +69,7 @@ else()
 endif()
 set(mpfr_url https://ftp.gnu.org/gnu/mpfr/mpfr-${mpfr_version}.tar.xz)
 
-set(zstd_url https://github.com/facebook/zstd/archive/refs/tags/v${zstd_version}.tar.gz)
+set(zstd_url https://github.com/facebook/zstd/releases/download/v${zstd_version}/zstd-${zstd_version}.tar.zst)
 
 message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX})

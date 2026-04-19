@@ -115,8 +115,13 @@ To build only prerequisites of GCC, do like:
 
 ```sh
 cmake -Bbuild -Dfind=no --fresh
-
 cmake --build build -t MPC
 ```
 
 where "MPC" can be replaced by "GMP", "MPFR", or "ISL".
+To build Zstd, do like:
+
+```sh
+cmake -Bbuild -Dzstd=on --fresh
+cmake --build build -t zstd
+```
