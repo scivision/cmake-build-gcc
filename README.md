@@ -108,3 +108,15 @@ Source a script like [gcc-dev.sh](./gcc-dev.sh) to use this GCC.
 
 
 [Troubleshooting](./troubleshooting.md)
+
+## Other notes
+
+To build only prerequisites of GCC, do like:
+
+```sh
+cmake -Bbuild -Dfind=no --fresh
+
+cmake --build build -t MPC
+```
+
+where "MPC" can be replaced by "GMP", "MPFR", or "ISL".

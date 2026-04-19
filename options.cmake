@@ -8,12 +8,14 @@ option(gcov "enable Gcov coverage tool" false)
 
 option(lto "enable LTO" false)
 
-option(find_gmp "find GMP" true)
-option(find_mpc "find MPC" true)
-option(find_mpfr "find MPFR" true)
+option(find "Find dependencies (GMP, ISL, MPC, MPFR)" true)
+
+option(find_gmp "find GMP" ${find})
+option(find_mpc "find MPC" ${find})
+option(find_mpfr "find MPFR" ${find})
 
 option(isl "Use ISL Graphite optimization" true)
-option(find_isl "find ISL" true)
+option(find_isl "find ISL" ${find})
 
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
   # FAIL: isl_test_cpp
@@ -53,8 +55,12 @@ endif()
 set(gmp_url https://ftp.gnu.org/gnu/gmp/gmp-${gmp_version}.tar.zst)
 set(isl_url https://libisl.sourceforge.io/isl-${isl_version}.tar.xz)
 
-set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-${mpc_version}.tar.gz)
-
+set(mpc_url https://ftp.gnu.org/gnu/mpc/mpc-${mpc_version}.tar)
+if(mpc_version VERSION_GREATER_EQUAL 1.4.0)
+  string(APPEND mpc_url ".xz")
+else()
+  string(APPEND mpc_url ".gz")
+endif()
 
 if(AUTOCONF_VERSION VERSION_LESS 2.71)
   set(mpfr_version 4.1.0)
