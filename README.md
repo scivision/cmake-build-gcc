@@ -1,12 +1,12 @@
-# CMake build GCC
+# CMake GCC superbuild
 
 [Configure](https://gcc.gnu.org/install/configure.html)
 and build
 [GCC](https://gcc.gnu.org/install/)
-natively for C, C++, Fortran languages.
+and find/build prerequisites natively for C, C++, Fortran languages.
 Find or build GCC prerequisite libraries GMP, MPFR, and MPC from CMake.
 
-Alternative script using [Homebrew](https://gist.github.com/scivision/7b580b82b2e37a4a885757ddfdf89e04).
+An alternative to this CMake superbuild is our [script using Homebrew pinning](https://gist.github.com/scivision/7b580b82b2e37a4a885757ddfdf89e04).
 
 [Platforms](https://gcc.gnu.org/gcc-16/criteria.html)
 working include **Linux (Intel / AMD CPU)** and **macOS**.
